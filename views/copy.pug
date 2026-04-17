@@ -1,0 +1,2234 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='Vehicle Management System')
+    meta(name='author', content='Siva')
+    meta(name='keyword', content='VMS, Vehicle Management System, vehicle')
+    title Vehicle Management System
+    link(type='image/png', href='images/bus.png', rel='icon')
+    // Bootstrap core CSS
+    link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='stylesheets/datatables.bootstrap.css')
+    //Datatables
+    link(rel='stylesheet', type='text/css', href='stylesheets/buttons.datatables.min.css')
+    //- // external css
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    // Custom styles for this template
+    link(href='stylesheets/style.css', rel='stylesheet')
+    link(href='stylesheets/style-responsive.css', rel='stylesheet')
+    //front-end styles
+    link(href='stylesheets/style1.css', rel='stylesheet')
+    //JSPDF
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js')
+    style.
+      .content{
+        position: relative;
+        color: #FEFEFE;
+        padding: 20px 0 0px 0;
+      }
+      /*arrow creation*/
+      .content:after, .content:before,.pt-footer:before,.pt-footer:after {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .pt-footer:after,.pt-footer:before{
+        top:0;
+      }
+      .content:after,.pt-footer:after {
+        border-color: rgba(136, 183, 213, 0); 
+        border-width: 5px;
+        margin-left: -5px;
+      }
+      .group:before,
+      .group:after {
+        content: "";
+        display: table;
+      } 
+      .group:after {
+        clear: both;
+      }
+      .group {
+        zoom: 1;  /*For IE 6/7 (trigger hasLayout) */
+      }
+      .pricing-table {
+        width: 90%;
+        margin: 0px 60px;
+        text-align: center;
+        padding: 5px;
+        padding-right: 0;
+      }
+      .pricing-table .heading{
+        color: #9C9E9F;
+        text-transform: uppercase;
+        font-size: 1.3rem;
+        margin-bottom: 4rem;
+      }
+      .block{
+        /*width: 30%;    */
+        margin: 5px 15px;
+        overflow: hidden;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;    
+        /*    border: 1px solid red;*/
+      }
+      .personal .title{        
+        background: #78CFBF;    
+      }
+      .personal .content,.personal .pt-footer{
+        background: #82DACA;
+      }
+      .personal .content:after{ 
+        border-top-color: #82DACA;  
+      }
+      .personal .pt-footer:after{
+        border-top-color: #FFFFFF;
+      }
+      .professional .title{
+        background: #3EC6E0;
+      }
+      .professional .content,.professional .pt-footer{
+        background: #53CFE9;
+      }
+      .professional .content:after{ 
+        border-top-color: #53CFE9;  
+      }
+      .professional .pt-footer:after{
+        border-top-color: #FFFFFF;
+      }
+      /*BUSINESS*/
+      .business .title{
+        background: #E3536C;
+      }
+      .business .content,.business .pt-footer{
+        background: #EB6379;
+      }
+      .business .content:after{ 
+        border-top-color: #EB6379;  
+      }
+      .business .pt-footer:after {  
+        border-top-color: #FFFFFF;  
+      }
+      td input{
+        width:150px !important;
+        border:1px solid red !important;
+      }
+      td select{
+        width:150px !important;
+        border:1px solid red !important;
+      } 
+  body(ng-app='myapp')
+    section#container
+      // header start
+      header.header.black-bg
+        .sidebar-toggle-box
+          .fa.fa-bars.tooltips(data-placement='right', data-original-title='Toggle Navigation')
+        // logo start
+        a.logo(href='#')
+          b
+            img(src='images/myhub_logo.png',style='height:55px;width:100px;margin-top:-13px')
+        // logo end
+        .top-menu
+          ul.nav.pull-right.top-menu
+            li
+              a.logout(href='logout') Logout
+      // header end
+      // sidebar start
+      aside
+        #sidebar.nav-collapse
+          // sidebar menu start
+          ul#nav-accordion.sidebar-menu
+            p.centered
+              a(href='/')
+                img.img-circle(src='images/bus.png', width='80')
+            h5.centered
+              p Fuel Automation System
+            li.sub-menu
+              a(data-toggle='tab', href='#admin')
+                i.fa.fa-dashboard
+                span Dashboard
+            li.sub-menu
+              a(data-toggle='tab', href='#vehicles')
+                i.fa.fa-beer
+                span Bunk filling
+            li.sub-menu
+              a(data-toggle='tab', href='#staff')
+                i.fa.fa-beer
+                span Fuel Entry
+            li.sub-menu
+              a(data-toggle='tab', href='#certificates')
+                i.fa.fa-list
+                span Reports
+            //- li.sub-menu
+            //-   a(data-toggle='tab', href='#fuels')
+            //-     i.fa.fa-beer
+            //-     span Fuels
+            //- li.sub-menu
+            //-   a(data-toggle='tab', href='#stores')
+            //-     i.fa.fa-shopping-cart
+            //-     span Stores
+            //- li.sub-menu
+            //-   a(data-toggle='tab', href='#services')
+            //-     i.fa.fa-cogs
+            //-     span Services
+            //- li.sub-menu
+            //-   a(data-toggle='tab', href='#reports')
+            //-     i.fa.fa-list
+            //-     span Reports
+            li.sub-menu
+              a(data-toggle='tab', href='#contact')
+                i.fa.fa-phone
+                span Contact Us
+      // sidebar menu end
+      // sidebar end
+      // main content start
+      section#main-content
+        section.wrapper.site-min-height
+          .row.mt
+            .col-lg-12
+              .tab-content
+                #admin.tab-pane.fade.in.active(ng-controller="dashboardcontroller", ng-init="getdata()")
+                  .row.dashboard-stats.container
+                    .col-md-2.col-sm-6.col-md-offset-6
+                      section.panel.panel-box
+                        .panel-left.panel-icon.bg-lovender
+  
+                          i.fa.fa-dashboard
+                        .panel-right.panel-icon.bg-reverse
+                          p.text-muted.no-margin.text
+                            span 
+                          p.size-h1 Dashboard
+                  .container
+                    .wrapper
+                      p(style="font-size:35px;text-align:center") Total Usage Information
+                      hr
+                      .pricing-table.group
+                        .row
+                          #one.col-md-4
+                            .block.personal.fl
+                              // CONTENT
+                              .content
+                                h4(style='margin: -10px 0 10px 0px;') Bunk Filling QTY.
+                                hr
+                                p.price
+                                  span(style="font-size:25px",ng-bind='Totallit')
+                          #two.col-md-4
+                            // PROFESSIONAL
+                            .block.professional.fl
+                              // CONTENT
+                              .content
+                                h4(style='margin: -10px 0 10px 0px;') Used QTY
+                                hr
+                                p.price
+                                  span(style="font-size:25px", ng-bind='Usagelit.toFixed(2)')
+                          #three.col-md-4
+                            .block.business.fl
+                              .content
+                                h4(style='margin: -10px 0 10px 0px;') Amount Spent
+                                hr
+                                p.price
+                                  span(style="font-size:25px", ng-bind='Totalamount.toFixed(2)')
+                    .wrapper
+                      p(style="font-size:35px;text-align:center") Day Wise Usage Information
+                      hr
+                      .pricing-table.group
+                        .row
+                          #one.col-md-3
+                            .block.personal.fl
+                              // CONTENT
+                              .content
+                                h4(style='margin: -10px 0 10px 0px;') Opening QTY
+                                hr
+                                p.price
+                                  span(style="font-size:25px",ng-bind='(Totallit - Usagelit).toFixed(2)')
+                          #two.col-md-3
+                            // PROFESSIONAL
+                            .block.professional.fl
+                              // CONTENT
+                              .content
+                                h4(style='margin: -10px 0 10px 0px;') Used QTY
+                                hr
+                                p.price
+                                  span(style="font-size:25px", ng-bind='TodayUsagelit')
+                              // /CONTENT
+                              // FEATURES
+                            // /PROFESSIONAL
+                          #three.col-md-3
+                            // BUSINESS
+                            .block.business.fl
+                              .content
+                                h4(style='margin: -10px 0 10px 0px;') Closing QTY
+                                hr
+                                p.price
+                                  span(style="font-size:25px", ng-bind='((Totallit - Usagelit) - TodayUsagelit).toFixed(2)')
+                                // <p class="hint">For established business</p>
+                              // /CONTENT
+                            // /BUSINESS
+                          #four.col-md-3
+                            // BUSINESS
+                            .block.business.fl
+                              .content
+                                h4(style='margin: -10px 0 10px 0px;') Remainder QTY
+                                hr
+                                p.price
+                                  span(style="font-size:25px",ng-bind='3000')
+        
+                  .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                      .row
+                        .col-md-12
+                          .row
+                            .col-md-12()
+                              .panel.panel-default.animated.zoomIn
+                                // Default panel contents
+                                .panel-heading.main-color-bg(style="text-align:center") Present Day Records
+                                .panel-body
+                                  // Table
+                                  .table-responsive
+                                    table.table.table-striped.table-bordered.table-hover(datatable="ng" dt-options="vm.dtOptions" dt-instance="vm.dtInstance"  width="100%")
+                                      thead
+                                        tr
+                                          th S.No
+                                          th Type
+                                          th Model
+                                          th Register No.
+                                          th Society
+                                          th Branch
+                                          th Driver Name
+                                          th Fuel Supplier
+                                          th Date
+                                          th Rate Per Liter
+                                          th Quantity
+                                          th Total Rate
+                                          th Token No.
+                                          th Token Issued By
+                                          th OMR
+                                          th CMR
+                                          th KMS
+                                          th Avg.KMPL
+                                          th Grade
+                                          th Description
+                                      tbody
+                                        tr(ng-repeat='busfills in busfill')
+                                          td
+                                            span(ng-bind="$index + 1 | number")
+                                          td
+                                            span(ng-bind="busfills.vehicletype") 
+                                          td
+                                            span(ng-bind="busfills.model") 
+                                          td
+                                            span(ng-bind="busfills.regno") 
+                                          td
+                                            span(ng-bind="busfills.society") 
+                                          td
+                                            span(ng-bind="busfills.branch")       
+                                          td
+                                            span(ng-bind="busfills.drivername") 
+                                          td
+                                            span(ng-bind="busfills.fuelsupplier") 
+                                          td
+                                            span(ng-bind="busfills.date") 
+                                          td
+                                            span(ng-bind="busfills.frate") 
+                                          td
+                                            span(ng-bind="busfills.fquantity") 
+                                          td
+                                            span(ng-bind="busfills.total | number:1") 
+                                          td
+                                            span(ng-bind="busfills.token") 
+                                          td
+                                            span(ng-bind="busfills.issuedby") 
+                                          td
+                                            span(ng-bind="busfills.omr") 
+                                          td
+                                            span(ng-bind="busfills.cmr") 
+                                          td
+                                            span(ng-bind="busfills.kms") 
+                                          td
+                                            span(ng-bind="busfills.avgkmpl | number:1") 
+                                          td
+                                            span(ng-bind="busfills.grade") 
+                                          td
+                                            span(ng-bind="busfills.description")         
+                #staff.tab-pane.fade.align(ng-controller='BusfillController')
+                  .row.dashboard-stats.container
+                    .col-md-2.col-sm-6.col-md-offset-6
+                      section.panel.panel-box
+                        .panel-left.panel-icon.bg-lovender
+  
+                          i.fa.fa-user
+                        .panel-right.panel-icon.bg-reverse
+                          p.text-muted.no-margin.text
+                            span 
+                          p.size-h1 Fuel's
+                  br
+                  .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                    .row 
+                      br  
+                      .col-lg-12
+                        button.btn.btn-info.btn-lg(type='button', ng-click='getBusfilldata()', style='margin-right:20px;') View Data
+                        button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal30', ng-click="getdata()") Add New
+                        #myModal30.modal.fade(role='dialog')
+                          .modal-dialog
+                            .modal-content
+                              .modal-header
+                                button.close(type='button', data-dismiss='modal') ×
+                                h4.modal-title.text-center Bus Fill
+                              .modal-body
+                                label Vehicle Type :
+                                select.form-control(ng-model='busfills.vehicletype', ng-change='getdetails()')
+                                  option(value='Own Vehicle') Own Vehicle
+                                  option(value='Private') Private Vehicle
+                                  option(value='Stores') Stores
+                                  option(value='Power House') Powerhouse
+                                  option(value='Others') Others
+                                label(ng-show='desc') Description :
+                                textarea(rows='10', ng-model="busfills.description", ng-show='desc').form-control
+                                label(ng-show='result') Register No. :
+                                input.form-control(type="text", ng-model="busfills.regno", ng-keyup="search(busfills.regno)", ng-show='result')
+                                ul.list-group
+                                  li.list-group-item.list-group-item-action(ng-repeat="vehicles in Vehicle", ng-click="click(vehicles.regno)") {{vehicles.regno}}
+                                label Society Name :
+                                select.form-control(ng-model='busfills.society')
+                                  option(ng-repeat='societys in society', value='{{societys.name}}' ng-bind="societys.name") 
+                                label Branch Name :
+                                select.form-control(ng-model='busfills.branch')
+                                  option(ng-repeat='branchs in branch', value='{{branchs.name}}' ng-bind="branchs.name")     
+                                label Driver Name :
+                                input.form-control(type='text', ng-model='busfills.drivername')  
+                                //- select.form-control(ng-model='busfills.drivername')
+                                //-   option(ng-repeat='busstaffs in BusStaff', value='{{busstaffs.staffname}}') {{busstaffs.staffname}}
+                                label Fuel Supplier :
+                                select.form-control(ng-model='busfills.fuelsupplier')
+                                  option(ng-repeat='fuels in fuel', value='{{fuels.name}}' ng-bind="fuels.name") 
+                                label Date :
+                                input.form-control(type='date', ng-model='busfills.date')  
+                                label Rate Per Liter :
+                                input.form-control(type='text', ng-model='busfills.frate', ng-change='updateData()')
+                                label Quantity :
+                                input.form-control(type='text', ng-model='busfills.fquantity', ng-change='updateData()')
+                                label Total Rate :
+                                input.form-control(type='text', ng-model='busfills.total', disabled)
+                                label Token No. :
+                                input.form-control(type='text', ng-model='busfills.token')
+                                label Token Issued By :
+                                input.form-control(type='text', ng-model='busfills.issuedby')
+                                label OMR :
+                                input.form-control(type='text', ng-model='busfills.omr', ng-change='updateData()')
+                                label CMR :
+                                input.form-control(type='text', ng-model='busfills.cmr', ng-change='updateData()')
+                                label KMS :
+                                input.form-control(type='text', ng-model='busfills.kms', ng-change='updateData()')
+                                label Avg.KMPL :
+                                input.form-control(type='text', ng-model='busfills.avgkmpl', disabled, ng-change="updateGrade()")
+                                label Model :
+                                input.form-control(type='text',ng-model='busfills.model' , ng-change="updateGrade()")
+                                label Grade :
+                                input.form-control(type='text', ng-model='busfills.grade', disabled, ng-change="updateGrade()")
+                                br
+                                input.btn.btn-info(type='submit', value='save', data-dismiss='modal', ng-click="saveBusfillData(busfills)")
+                              .modal-footer
+                                button.btn.btn-default(type='button', data-dismiss='modal') Close
+                        br
+                        br
+                        .panel.panel-default
+                          .panel-body
+                            .table-responsive
+                              table.dataTables-example.table.table-striped.table-bordered.table-hover(datatable="ng" dt-options="vm.dtOptions" dt-instance="vm.dtInstance"  width="100%")
+                                thead
+                                  tr
+                                    th S.No
+                                    th Type
+                                    th Model
+                                    th Register No.
+                                    th Society
+                                    th Branch
+                                    th Driver Name
+                                    th Fuel Supplier
+                                    th Date
+                                    th Rate Per Liter
+                                    th Quantity
+                                    th Total Rate
+                                    th Token No.
+                                    th Token Issued By
+                                    th OMR
+                                    th CMR
+                                    th KMS
+                                    th Avg.KMPL
+                                    th Grade
+                                    th Description
+                                    th Edit
+                                    th Delete
+                                tbody
+                                  tr(ng-repeat='busfills in busfill')
+                                    td {{$index + 1 | number}}
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.vehicletype") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.vehicletype')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.model") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.model')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.regno") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.regno')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.society") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.society')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.branch") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.branch')      
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.drivername") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.drivername')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.fuelsupplier") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.fuelsupplier')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.date") 
+                                      input.form-control(type='date', ng-show='busfillEdit', ng-model='busfills.date')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.frate") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.frate')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.fquantity") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.fquantity')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.total | number:1") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.total')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.token") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.token')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.issuedby") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.issuedby')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.omr") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.omr')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.cmr") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.cmr')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.kms") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.kms')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.avgkmpl | number:1") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.avgkmpl')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.grade") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.grade')
+                                    td
+                                      span(ng-hide="busfillEdit" ng-bind="busfills.description") 
+                                      input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.description')
+                                    td
+                                      i.btn.btn-info.fa.fa-edit(ng-hide='busfillEdit', ng-click='busfillEdit = true; editBusfill(busfills)')
+                                      i.btn.btn-info.fa.fa-save(ng-show='busfillEdit', ng-click='busfillEdit = false; editsaveBusfill(busfills)')
+                                    td
+                                      i.btn.btn-danger.fa.fa-trash(ng-click='removebusfillItem($index,busfills)')
+                #vehicles.tab-pane.fade.align(ng-controller='FuelfillController')
+                  .row.dashboard-stats.container
+                    .col-md-2.col-sm-6.col-md-offset-6
+                      section.panel.panel-box
+                        .panel-left.panel-icon.bg-lovender
+  
+                          i.fa.fa-bus
+                        .panel-right.panel-icon.bg-reverse
+                          p.text-muted.no-margin.text
+                            span 
+                          p.size-h1 Vehicles
+                  .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                    .row 
+                      br   
+                      .col-lg-12
+                        button.btn.btn-info.btn-lg(type='button', ng-click='getFuelfilldata()', style='margin-right:20px;') View Data
+                        button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal29', ng-click="getdata()") Add New
+                        #myModal29.modal.fade(role='dialog')
+                          .modal-dialog
+                            .modal-content
+                              .modal-header
+                                button.close(type='button', data-dismiss='modal') ×
+                                h4.modal-title.text-center Bunk Fill
+                              .modal-body
+                                label Bunk :
+                                select.form-control(ng-model='fuelfills.bunkname')
+                                  option(value='Surampalem Engineering') Surampalem Engineering
+                                  option(value='Others') Others
+                                label Fuel Supplier :
+                                select.form-control(ng-model='fuelfills.bunksupplier')
+                                  option(ng-repeat='fuels in fuel', value='{{fuels.name}}') {{fuels.name}}
+                                label Bill No. :
+                                input.form-control(type='text', ng-model='fuelfills.billno')
+                                label Bill Date :
+                                input.form-control(type='date', ng-model='fuelfills.billdate')
+                                label Filling Date :
+                                input.form-control(type='date', ng-model='fuelfills.filldate')
+                                label Tanker Register No :
+                                input.form-control(type='text', ng-model='fuelfills.tankerno')
+                                label Quantity :
+                                input.form-control(type='text', ng-model='fuelfills.quantity', ng-change="updateSum()")
+                                label Rate Per Liter :
+                                input.form-control(type='text', ng-model='fuelfills.rate', ng-change="updateSum()")
+                                label Total rate :
+                                input.form-control(type='text', disabled, ng-model='fuelfills.trate')
+                                br
+                                input.btn.btn-info(type='submit', value='save', data-dismiss='modal', ng-click="saveFuelfillData(fuelfills)")
+                              .modal-footer
+                                button.btn.btn-default(type='button', data-dismiss='modal') Close
+                        br
+                        br
+                        .panel.panel-default
+                          .panel-body
+                            .table-responsive
+                              table.dataTables-example.table.table-striped.table-bordered.table-hover(datatable="ng" dt-options="vm.dtOptions" dt-instance="vm.dtInstance"  width="100%")
+                                thead
+                                  tr
+                                    th S.No
+                                    th Bunk
+                                    th Fuel Supplier
+                                    th Bill No.
+                                    th Bill Date
+                                    th Filling Date
+                                    th Tanker Register No
+                                    th Quantity
+                                    th Rate Per Liter
+                                    th Total Rate
+                                    th Edit
+                                    th Delete
+                                tbody
+                                  tr(ng-repeat='fuelfills in fuelfill')
+                                    td {{$index + 1 | number}}
+                                    td
+                                      span(ng-hide="fuelfillEdit") {{fuelfills.bunkname}}
+                                      input.form-control(type='text', ng-show='fuelfillEdit', ng-model='fuelfills.bunkname')
+                                    td
+                                      span(ng-hide="fuelfillEdit") {{fuelfills.bunksupplier}}
+                                      input.form-control(type='text', ng-show='fuelfillEdit', ng-model='fuelfills.bunksupplier')
+                                    td
+                                      span(ng-hide="fuelfillEdit") {{fuelfills.billno}}
+                                      input.form-control(type='text', ng-show='fuelfillEdit', ng-model='fuelfills.billno')
+                                    td
+                                      span(ng-hide="fuelfillEdit") {{fuelfills.billdate}}
+                                      input.form-control(type='text', ng-show='fuelfillEdit', ng-model='fuelfills.billdate')
+                                    td
+                                      span(ng-hide="fuelfillEdit") {{fuelfills.filldate}}
+                                      input.form-control(type='text', ng-show='fuelfillEdit', ng-model='fuelfills.filldate')
+                                    td
+                                      span(ng-hide="fuelfillEdit") {{fuelfills.tankerno}}
+                                      input.form-control(type='text', ng-show='fuelfillEdit', ng-model='fuelfills.tankerno')
+                                    td
+                                      span(ng-hide="fuelfillEdit") {{fuelfills.quantity}}
+                                      input.form-control(type='text', ng-show='fuelfillEdit', ng-model='fuelfills.quantity')
+                                    td
+                                      span(ng-hide="fuelfillEdit") {{fuelfills.rate}}
+                                      input.form-control(type='text', ng-show='fuelfillEdit', ng-model='fuelfills.rate')
+                                    td
+                                      span(ng-hide="fuelfillEdit") {{fuelfills.trate}}
+                                      input.form-control(type='text', ng-show='fuelfillEdit', ng-model='fuelfills.trate')
+                                    td
+                                      i.btn.btn-info.fa.fa-edit(ng-hide='fuelfillEdit', ng-click='fuelfillEdit = true; editFuelfill(fuelfills)')
+                                      i.btn.btn-info.fa.fa-save(ng-show='fuelfillEdit', ng-click='fuelfillEdit = false; editsaveFuelfill(fuelfills)')
+                                    td
+                                      i.btn.btn-danger.fa.fa-trash(ng-click='removefuelfillItem($index,fuelfills)') 
+                #certificates.tab-pane.fade.align(ng-controller='BusfillController')
+                  .row.dashboard-stats.container
+                    .col-md-2.col-sm-6.col-md-offset-6
+                      section.panel.panel-box
+                        .panel-left.panel-icon.bg-lovender
+  
+                          i.fa.fa-file
+                        .panel-right.panel-icon.bg-reverse
+                          p.text-muted.no-margin.text
+                            span 
+                          p.size-h1 Reports
+                  .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                    .row
+                      .col-lg-12
+                        ul.nav.nav-tabs.nav-justified.tab
+                          li
+                            button(href="#busfillgeneratedata", data-toggle="tab") Generate Report
+                          li
+                            button(href="#busfillsearchbusdata", data-toggle="tab") Search Bus Report 
+                        .tab-content
+                          #busfillgeneratedata.tab-pane.fade.align
+                            .col-lg-12
+                              .col-lg-3
+                                label fromdate:
+                                input.form-control(type="date", ng-model="dates.fdate")
+                              .col-lg-3
+                                label todate:
+                                input.form-control(type="date", ng-model="dates.tdate")
+                              .col-lg-3
+                                button.btn.btn-info(type="button", ng-click="report(dates)", style="margin-top:25px") getdata    
+                              br
+                              br    
+                              .col-md-12       
+                                .panel.panel-default
+                                  .panel-body
+                                    .table-responsive
+                                      table.dataTables-example.table.table-striped.table-bordered.table-hover(datatable="ng" dt-options="vm.dtOptions" dt-instance="vm.dtInstance"  width="100%")
+                                        thead
+                                          tr
+                                            th S.No
+                                            th Type
+                                            th Model
+                                            th Register No.
+                                            th Society
+                                            th Branch
+                                            th Driver Name
+                                            th Fuel Supplier
+                                            th Date
+                                            th Rate Per Liter
+                                            th Quantity
+                                            th Total Rate
+                                            th Token No.
+                                            th Token Issued By
+                                            th OMR
+                                            th CMR
+                                            th KMS
+                                            th Avg.KMPL
+                                            th Grade
+                                            th Description
+                                        tbody
+                                          tr(ng-repeat='busfills in busfillreportdata')
+                                            td {{$index + 1 | number}}
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.vehicletype}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.vehicletype')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.model}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.model')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.regno}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.regno')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.society}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.society')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.branch}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.branch')      
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.drivername}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.drivername')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.fuelsupplier}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.fuelsupplier')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.date}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.date')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.frate}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.frate')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.fquantity}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.fquantity')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.total | number:1}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.total')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.token}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.token')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.issuedby}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.issuedby')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.omr}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.omr')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.cmr}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.cmr')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.kms}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.kms')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.avgkmpl | number:1}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.avgkmpl')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.grade}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.grade')
+                                            td
+                                              span(ng-hide="busfillEdit") {{busfills.description}}
+                                              input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.description')
+                          #busfillsearchbusdata.tab-pane.fade.align
+                            br
+                            .col-lg-12
+                              .col-lg-3
+                                label Register No:
+                                input.form-control(type="text",ng-model="bus.reg", ng-keyup="searchbus(bus.reg)")
+                                ul.list-group
+                                  li.list-group-item.list-group-item-action(ng-repeat="vehicles in Vehicle", ng-click="clickbus(vehicles.regno)") {{vehicles.regno}}
+                              .col-lg-3
+                                button.btn.btn-info(type="button", ng-click="busreport(bus)", style="margin-top:25px") getdata
+                            br
+                            .col-lg-12
+                              .panel.panel-default
+                                .panel-body
+                                  .table-responsive
+                                    table.dataTables-example.table.table-striped.table-bordered.table-hover(datatable="ng" dt-options="vm.dtOptions" dt-instance="vm.dtInstance"  width="100%")
+                                      thead
+                                        tr
+                                          th S.No
+                                          th Type
+                                          th Model
+                                          th Register No.
+                                          th Society
+                                          th Branch
+                                          th Driver Name
+                                          th Fuel Supplier
+                                          th Date
+                                          th Rate Per Liter
+                                          th Quantity
+                                          th Total Rate
+                                          th Token No.
+                                          th Token Issued By
+                                          th OMR
+                                          th CMR
+                                          th KMS
+                                          th Avg.KMPL
+                                          th Grade
+                                          th Description
+                                          th Edit
+                                          th Delete
+                                      tbody
+                                        tr(ng-repeat='busfills in busfillsearchreport')
+                                          td {{$index + 1 | number}}
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.vehicletype}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.vehicletype')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.model}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.model')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.regno}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.regno')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.society}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.society')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.branch}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.branch')      
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.drivername}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.drivername')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.fuelsupplier}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.fuelsupplier')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.date}}
+                                            input.form-control(type='date', ng-show='busfillEdit', ng-model='busfills.date')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.frate}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.frate')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.fquantity}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.fquantity')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.total | number:1}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.total')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.token}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.token')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.issuedby}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.issuedby')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.omr}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.omr')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.cmr}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.cmr')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.kms}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.kms')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.avgkmpl | number:1}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.avgkmpl')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.grade}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.grade')
+                                          td
+                                            span(ng-hide="busfillEdit") {{busfills.description}}
+                                            input.form-control(type='text', ng-show='busfillEdit', ng-model='busfills.description')
+                                          td
+                                            i.btn.btn-info.fa.fa-edit(ng-hide='busfillEdit', ng-click='busfillEdit = true; editBusfill(busfills)')
+                                            i.btn.btn-info.fa.fa-save(ng-show='busfillEdit', ng-click='busfillEdit = false; editsaveBusfill(busfills)')
+                                          td
+                                            i.btn.btn-danger.fa.fa-trash(ng-click='removebusfillItem($index,busfills)')
+                #fuels.tab-pane.fade.align
+                  .row.dashboard-stats.container
+                    .col-md-2.col-sm-6.col-md-offset-6
+                      section.panel.panel-box
+                        .panel-left.panel-icon.bg-lovender
+  
+                          i.fa.fa-beer
+                        .panel-right.panel-icon.bg-reverse
+                          p.text-muted.no-margin.text
+                            span 
+                          p.size-h1 Fuels
+                  .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                    .row
+                      .col-lg-12
+                        ul.nav.nav-tabs.nav-justified.tab
+                          li
+                            button(href="#fuelsup", data-toggle="tab") Fuel_Suppliers
+                          li
+                            button(href="#fuelbunk", data-toggle="tab") Fuel_Bunk
+                          li
+                            button(href="#bunkfill", data-toggle="tab") Bunk_Fillings
+                          li
+                            button(href="#busfill", data-toggle="tab") Bus_Fillings
+                        .tab-content
+                          #fuelsup.tab-pane.fade
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal11') Add New
+                                  #myModal11.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Fuels
+                                        .modal-body
+                                          label Company Name :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Company Name
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td Indian Oil
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                          #fuelbunk.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal12') Add New
+                                  #myModal12.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Fuel Bunk
+                                        .modal-body
+                                          label Branch Name :
+                                          select.form-control
+                                            option Surampalem Engineering
+                                          label Bunk Capacity :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Branch Name
+                                              th Bunk Capacity
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td 
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                          #bunkfill.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal13') Add New
+                                  #myModal13.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Bunk Fill
+                                        .modal-body
+                                          label Bunk :
+                                          select.form-control
+                                            option Surampalem Engineering
+                                          label Fuel Supplier :
+                                          select.form-control
+                                            option Indian Oil
+                                            option Other
+                                          label Bill No. :
+                                          input.form-control(type='text')
+                                          label Bill Date :
+                                          input.form-control(type='date')
+                                          label Filling Date :
+                                          input.form-control(type='date')
+                                          label Tanker Register No :
+                                          input.form-control(type='text')
+                                          label Quantity :
+                                          input.form-control(type='text')
+                                          label Rate Per Liter :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Bunk
+                                              th Fuel Supplier
+                                              th Bill No.
+                                              th Bill Date
+                                              th Filling Date
+                                              th Tanker Register No
+                                              th Quantity
+                                              th Rate Per Liter
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td 
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                          #busfill.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal14') Add New
+                                  #myModal14.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Bus Fill
+                                        .modal-body
+                                          label Type
+                                          select.form-control
+                                            option Own Vehicle
+                                            option Private Vehicle
+                                            option Stores
+                                            option Powerhouse
+                                            option Others
+                                          label Register No. :
+                                          input.form-control(type='text')
+                                          label Driver Name :
+                                          select.form-control
+                                            option Name 1
+                                            option Name 2
+                                          label Fuel Supplier :
+                                          select.form-control
+                                            option Indian Oil
+                                            option Other
+                                          label Date :
+                                          input.form-control(type='date')  
+                                          label Rate Per Liter :
+                                          input.form-control(type='text')
+                                          label Quantity :
+                                          input.form-control(type='text')
+                                          label Total Rate :
+                                          input.form-control(type='text')
+                                          label Token No. :
+                                          input.form-control(type='text')
+                                          label Token Issued By :
+                                          input.form-control(type='text')
+                                          label OMR :
+                                          input.form-control(type='text')
+                                          label CMR :
+                                          input.form-control(type='text')
+                                          label Avg.KMPL :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Type
+                                              th Register No.
+                                              th Driver Name
+                                              th Fuel Supplier
+                                              th Rate Per Liter
+                                              th Quantity
+                                              th Total Rate
+                                              th Token No.
+                                              th Token Issued By
+                                              th OMR
+                                              th CMR
+                                              th Avg.KMPL
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                #stores.tab-pane.fade.align
+                  .row.dashboard-stats.container
+                    .col-md-2.col-sm-6.col-md-offset-6
+                      section.panel.panel-box
+                        .panel-left.panel-icon.bg-lovender
+  
+                          i.fa.fa-shopping-cart
+                        .panel-right.panel-icon.bg-reverse
+                          p.text-muted.no-margin.text
+                            span 
+                          p.size-h1 Stores
+                  .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                    .row
+                      .col-lg-12
+                        ul.nav.nav-tabs.nav-justified.tab
+                          li
+                            button(href="#categories", data-toggle="tab") Categories
+                          li
+                            button(href="#subcat", data-toggle="tab") Sub_Categories
+                          li
+                            button(href="#subitems", data-toggle="tab") Sub_Categories_Items
+                          li
+                            button(href="#ordersplaced", data-toggle="tab") Orders_Placed
+                          li
+                            button(href="#materialrecieved", data-toggle="tab") Material_Recieved
+                          li
+                            button(href="#stockregister", data-toggle="tab") Stock_Register
+                          li
+                            button(href="#indents", data-toggle="tab") Indents
+                        .tab-content
+                          #categories.tab-pane.fade
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal19') New Category
+                                  #myModal19.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Category
+                                        .modal-body
+                                          label Category Name :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Category Name
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td 
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                          #subcat.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal20') Add New
+                                  #myModal20.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Sub-Category
+                                        .modal-body
+                                          label Category Name :
+                                          select.form-control
+                                            option Category 1
+                                            option Category 2
+                                          label Sub Category :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Category Name
+                                              th Sub-Category Name
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td 
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash 
+                          #subitems.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal21') Add New
+                                  #myModal21.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Sub-Category Items
+                                        .modal-body
+                                          label Category Name :
+                                          select.form-control
+                                            option Category 1
+                                            option Category 2
+                                          label Sub-Category Name :
+                                          select.form-control
+                                            option Sub-Category 1
+                                            option Sub-Category 2
+                                          label Type :
+                                          select.form-control
+                                            option Part
+                                            option Consumable
+                                            option Others
+                                          label Item Name :
+                                          input.form-control(type='text')
+                                          label Quantity in Stock :
+                                          input.form-control(type='text')
+                                          label Item Rate :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Category Name
+                                              th Sub-Category Name
+                                              th Type
+                                              th Item Name
+                                              th Quantity in Stock
+                                              th Item Rate
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td 
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash 
+                          #ordersplaced.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal22') Add New
+                                  #myModal22.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Orders Placed
+                                        .modal-body
+                                          label Name of the Particulars :
+                                          input.form-control(type='text')
+                                          label Token No. :
+                                          input.form-control(type='text')
+                                          label Quantity :
+                                          input.form-control(type='text')
+                                          label Authorized Person :
+                                          input.form-control(type='text')
+                                          label Date :
+                                          input.form-control(type='date')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Name of the Particulars
+                                              th Token No.
+                                              th Quantity
+                                              th Authorized Person
+                                              th Date
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td 
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash 
+                          #materialrecieved.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal23') Add New
+                                  #myModal23.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Materials Recieved
+                                        .modal-body
+                                          label Category Name :
+                                          select.form-control
+                                            option Category 1
+                                            option Category 2
+                                          label Sub-Category Name :
+                                          select.form-control
+                                            option Sub-Category 1
+                                            option Sub-Category 2
+                                          label Item Name :
+                                          select.form-control
+                                            option Item 1
+                                            option Item 2
+                                          label Bill No. :
+                                          input.form-control(type='text')
+                                          label Recieved Quantity :
+                                          input.form-control(type='text')
+                                          label Bill Value :
+                                          input.form-control(type='text')
+                                          label Bill Date :
+                                          input.form-control(type='date')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Category Name
+                                              th Sub-Category
+                                              th Item Name No.
+                                              th Bill No.ity
+                                              th Recieved Quantityrized Person
+                                              th Bill Value
+                                              th Bill Date
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td 
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash  
+                          #stockregister.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal24') Add New
+                                  #myModal24.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Stock Register
+                                        .modal-body
+                                          label Category Name :
+                                          select.form-control
+                                            option Category 1
+                                            option Category 2
+                                          label Sub-Category Name :
+                                          select.form-control
+                                            option Sub-Category 1
+                                            option Sub-Category 2
+                                          label Item Name :
+                                          select.form-control
+                                            option Item 1
+                                            option Item 2
+                                          label From Date :
+                                          input.form-control(type='date')
+                                          label To Date :
+                                          input.form-control(type='date')
+                                          label Opening Stock :
+                                          input.form-control(type='text')
+                                          label Closing Stock :
+                                          input.form-control(type='text')
+                                          label No.of Quantity Used :
+                                          input.form-control(type='text')
+                                          label Remarks :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Category Name
+                                              th Sub-Category
+                                              th Item Name
+                                              th From Date
+                                              th To Date
+                                              th Opening Stock
+                                              th Closing Stock
+                                              th No.of Quantity Used 
+                                              th Remarks
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td 
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                          #indents.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal25') Add New
+                                  #myModal25.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Indents
+                                        .modal-body
+                                          label Category Name :
+                                          select.form-control
+                                            option Category 1
+                                            option Category 2
+                                          label Sub-Category Name :
+                                          select.form-control
+                                            option Sub-Category 1
+                                            option Sub-Category 2
+                                          label Item Name :
+                                          select.form-control
+                                            option Item 1
+                                            option Item 2
+                                          label Vehicle No. :
+                                          select.form-control
+                                            option vehicle 1
+                                            option vehicle 2
+                                          label Raised by :
+                                          input.form-control(type='text')
+                                          label Issued By :
+                                          input.form-control(type='text')
+                                          label Quantity :
+                                          input.form-control(type='text')
+                                          label Indent Date :
+                                          input.form-control(type='date')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Category Name
+                                              th Sub-Category
+                                              th Item Name
+                                              th Vehicle No.
+                                              th Raised by
+                                              th Issued By
+                                              th Quantity
+                                              th Indent Date
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td 
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.download.btn.btn-primary.fa.fa-download
+                #services.tab-pane.fade.align
+                  .row.dashboard-stats.container
+                    .col-md-2.col-sm-6.col-md-offset-6
+                      section.panel.panel-box
+                        .panel-left.panel-icon.bg-lovender
+  
+                          i.fa.fa-cogs
+                        .panel-right.panel-icon.bg-reverse
+                          p.text-muted.no-margin.text
+                            span 
+                          p.size-h1 Services
+                  .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                    .row
+                      .col-lg-12
+                        ul.nav.nav-tabs.nav-justified.tab
+                          li
+                            button(href="#dayvehicle", data-toggle="tab") Day_Vehicle_Maintainence
+                          li
+                            button(href="#vehiclerepair", data-toggle="tab") Vehicle_Repairs
+                          li
+                            button(href="#branchvehiclerepair", data-toggle="tab") Branch_Vehicle_Repair
+                          li
+                            button(href="#branchvehicleissue", data-toggle="tab") Branch_Vehicle_Issue
+                        .tab-content
+                          #dayvehicle.tab-pane.fade
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal15') Add New
+                                  #myModal15.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Daily Vehicle Maintainance
+                                        .modal-body
+                                          label Society :
+                                          select.form-control
+                                            option Aditya Engineering College
+                                          label Branch :
+                                          select.form-control
+                                            option Aditya
+                                          label Model :
+                                          select.form-control
+                                            option TATA
+                                          label Vehicle No. :
+                                          select.form-control
+                                            option AP05 CD 1230
+                                          label Water Servicing : 
+                                          input(type='radio', name='water') 
+                                          | YES
+                                          input(type='radio', name='water') 
+                                          | NO
+                                          br
+                                          br
+                                          label Engine Oil : 
+                                          input(type='radio', name='engine') 
+                                          | YES
+                                          input(type='radio', name='engine') 
+                                          | NO
+                                          br
+                                          br
+                                          label Chasis : 
+                                          input(type='radio', name='chasis') 
+                                          | YES
+                                          input(type='radio', name='chasis') 
+                                          | NO
+                                          br
+                                          br
+                                          label Springs : 
+                                          input(type='radio', name='springs') 
+                                          | YES
+                                          input(type='radio', name='springs') 
+                                          | NO
+                                          br
+                                          br
+                                          label Center Joints : 
+                                          input(type='radio', name='joints') 
+                                          | YES
+                                          input(type='radio', name='joints') 
+                                          | NO
+                                          br
+                                          br
+                                          label All U Bolts : 
+                                          input(type='radio', name='ubolts') 
+                                          | YES
+                                          input(type='radio', name='ubolts') 
+                                          | NO
+                                          br
+                                          br
+                                          label Air Filling : 
+                                          input(type='radio', name='filling') 
+                                          | YES
+                                          input(type='radio', name='filling') 
+                                          | NO
+                                          br
+                                          br
+                                          label Greesing : 
+                                          input(type='radio', name='greesing') 
+                                          | YES
+                                          input(type='radio', name='greesing') 
+                                          | NO
+                                          br
+                                          br
+                                          label Battery Maintenance : 
+                                          input(type='radio', name='maintenance') 
+                                          | YES
+                                          input(type='radio', name='maintenance') 
+                                          | NO
+                                          br
+                                          br
+                                          label Lights : 
+                                          input(type='radio', name='lights') 
+                                          | YES
+                                          input(type='radio', name='lights') 
+                                          | NO
+                                          br
+                                          br
+                                          label Glasses : 
+                                          input(type='radio', name='glasses') 
+                                          | YES
+                                          input(type='radio', name='glasses') 
+                                          | NO
+                                          br
+                                          br
+                                          label Body paint : 
+                                          input(type='radio', name='paint') 
+                                          | YES
+                                          input(type='radio', name='paint') 
+                                          | NO
+                                          br
+                                          br
+                                          label Seats : 
+                                          input(type='radio', name='seats') 
+                                          | YES
+                                          input(type='radio', name='seats') 
+                                          | NO
+                                          br
+                                          br
+                                          label Gear Oil : 
+                                          input(type='radio', name='gear') 
+                                          | YES
+                                          input(type='radio', name='gear') 
+                                          | NO
+                                          br
+                                          br
+                                          label DIF Oil : 
+                                          input(type='radio', name='dif') 
+                                          | YES
+                                          input(type='radio', name='dif') 
+                                          | NO
+                                          br
+                                          br
+                                          label Break Oil : 
+                                          input(type='radio', name='break') 
+                                          | YES
+                                          input(type='radio', name='break') 
+                                          | NO
+                                          br
+                                          br
+                                          label ATF Oil : 
+                                          input(type='radio', name='atf') 
+                                          | YES
+                                          input(type='radio', name='atf') 
+                                          | NO
+                                          br
+                                          br
+                                          label Radiator Water : 
+                                          input(type='radio', name='radiator') 
+                                          | YES
+                                          input(type='radio', name='radiator') 
+                                          | NO
+                                          br
+                                          br
+                                          label Meter Reading :
+                                          input.form-control(type='text')
+                                          label Date of Maintainence :
+                                          input.form-control(type='date')
+                                          label Remarks :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Society
+                                              th Branch
+                                              th Model
+                                              th Vehicle No.
+                                              th Water Servicing
+                                              th Engine Oil
+                                              th Chasis
+                                              th Springs
+                                              th Center Joints
+                                              th All U Bolts
+                                              th Air Filling
+                                              th Greesing
+                                              th Battery Maintenance
+                                              th Lights
+                                              th Glasses
+                                              th Body paint
+                                              th Seats
+                                              th Gear Oil
+                                              th DIF Oil
+                                              th Break Oil
+                                              th ATF Oil
+                                              th Radiator Water
+                                              th Meter Reading
+                                              th Date of Maintainence
+                                              th Remarks
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                          #vehiclerepair.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal16') Add New
+                                  #myModal16.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Vehicle Repair
+                                        .modal-body
+                                          label Society :
+                                          select.form-control
+                                            option Aditya Engineering College
+                                          label Branch :
+                                          select.form-control
+                                            option Aditya
+                                          label Model :
+                                          select.form-control
+                                            option TATA
+                                          label Vehicle No. :
+                                          select.form-control
+                                            option AP05 CD 1230
+                                          label Route :
+                                          select.form-control
+                                            option Academy
+                                          label Name of the Attendant :
+                                          select.form-control
+                                            option Name
+                                          label Date :
+                                          input.form-control(type='date')
+                                          label Repair Description :
+                                          input.form-control(type='text')
+                                          label In Time :
+                                          input.form-control(type='time')
+                                          label Out Time :
+                                          input.form-control(type='time')
+                                          label Meter Reading :
+                                          input.form-control(type='text')
+                                          label Remarks :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Society
+                                              th Branch
+                                              th Model
+                                              th Vehicle No.
+                                              th Route
+                                              th Name of the Attendant
+                                              th Date
+                                              th Repair Description
+                                              th In Time
+                                              th Out Time
+                                              th Meter Reading
+                                              th Remarks
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                          #branchvehiclerepair.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal17') Add New
+                                  #myModal17.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Branch Vehicle
+                                        .modal-body
+                                          label Society :
+                                          select.form-control
+                                            option Aditya Engineering College
+                                          label Branch :
+                                          select.form-control
+                                            option Aditya
+                                          label Vehicle No. :
+                                          select.form-control
+                                            option AP05 CD 1230
+                                          label Date :
+                                          input.form-control(type='date')
+                                          label Driver Name :
+                                          input.form-control(type='text')
+                                          label Problem Description :
+                                          input.form-control(type='text')
+                                          label Estimated Time :
+                                          input.form-control(type='time')
+                                          label Estimated Amount :
+                                          input.form-control(type='text')
+                                          label Remarks :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Society
+                                              th Branch
+                                              th Vehicle No.
+                                              th Date
+                                              th Driver Name
+                                              th Problem Description
+                                              th Estimated Time
+                                              th Estimated Amount
+                                              th Remarks
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                          #branchvehicleissue.tab-pane.fade.align
+                            .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                              .row 
+                                br   
+                                .col-lg-12
+                                  button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal18') Add New
+                                  #myModal18.modal.fade(role='dialog')
+                                    .modal-dialog
+                                      .modal-content
+                                        .modal-header
+                                          button.close(type='button', data-dismiss='modal') ×
+                                          h4.modal-title.text-center Branch Vehicle
+                                        .modal-body
+                                          label Society :
+                                          select.form-control
+                                            option Aditya Engineering College
+                                          label Branch :
+                                          select.form-control
+                                            option Aditya
+                                          label Vehicle No. :
+                                          select.form-control
+                                            option AP05 CD 1230
+                                          label Driver Name :
+                                          input.form-control(type='text')
+                                          label Entry Date :
+                                          input.form-control(type='date')
+                                          label Delivery Date :
+                                          input.form-control(type='date')
+                                          label Problems Verified by :
+                                          input.form-control(type='text')
+                                          label Vehicle Issued By :
+                                          input.form-control(type='text')
+                                          label Remarks :
+                                          input.form-control(type='text')
+                                          br
+                                          input.btn.btn-info(type='submit', value='save')
+                                        .modal-footer
+                                          button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                  br
+                                  br
+                                  .panel.panel-default
+                                    .panel-body
+                                      .table-responsive
+                                        table.dataTables-example.table.table-striped.table-bordered.table-hover
+                                          thead
+                                            tr
+                                              th S.No
+                                              th Society
+                                              th Branch
+                                              th Vehicle No.
+                                              th Driver Name
+                                              th Entry Date
+                                              th Delivery Date
+                                              th Problems Verified by
+                                              th Vehicle Issued By
+                                              th Remarks
+                                              th Action
+                                          tbody
+                                            tr
+                                              td 1
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td
+                                              td 
+                                                a(href='#')
+                                                  i.edit.btn.btn-info.fa.fa-edit
+                                                a(href='#', style='margin-left:10px;')
+                                                  i.remove.btn.btn-danger.fa.fa-trash
+                #reports.tab-pane.fade.align
+                  .row.dashboard-stats.container
+                    .col-md-2.col-sm-6.col-md-offset-6
+                      section.panel.panel-box
+                        .panel-left.panel-icon.bg-lovender
+  
+                          i.fa.fa-list
+                        .panel-right.panel-icon.bg-reverse
+                          p.text-muted.no-margin.text
+                            span 
+                          p.size-h1 Reports
+                  .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                    .row
+                      .col-lg-12
+                        ul.nav.nav-tabs.nav-justified.tab
+                          li
+                            button(href="#vehiclereports", data-toggle="tab") Vehicle_Reports
+                          li
+                            button(href="#driverreports", data-toggle="tab") Driver_Reports
+                          li
+                            button(href="#fuelreports", data-toggle="tab") Fuel_Reports
+                          li
+                            button(href="#branchreports", data-toggle="tab") Branch_Reports
+                          li
+                            button(href="#stagereports", data-toggle="tab") Stages_Reports
+                          li
+                            button(href="#handoverreports", data-toggle="tab") Handover_Reports
+                          li
+                            button(href="#branchfuelreports", data-toggle="tab") Branch_Fuel_Reports
+                          li
+                            button(href="#supplierfuelreports", data-toggle="tab") Supplier_Fuel_Reports
+                          li
+                            button(href="#vehicletrips", data-toggle="tab") Vehicle_Trips
+                        .tab-content
+                          #vehiclereports.tab-pane.fade
+                            .well.text-center
+                              h1
+                                | Coming Soon....... 
+                          #driverreports.tab-pane.fade.align
+                            .well.text-center
+                              h1
+                                | Coming Soon....... 
+                          #fuelreports.tab-pane.fade.align
+                            .well.text-center
+                              h1
+                                | Coming Soon....... 
+                          #branchreports.tab-pane.fade.align
+                            .well.text-center
+                              h1
+                                | Coming Soon....... 
+                          #stagereports.tab-pane.fade.align
+                            .well.text-center
+                              h1
+                                | Coming Soon....... 
+                          #handoverreports.tab-pane.fade.align
+                            .well.text-center
+                              h1
+                                | Coming Soon....... 
+                          #branchfuelreports.tab-pane.fade.align
+                            .well.text-center
+                              h1
+                                | Coming Soon....... 
+                          #supplierfuelreports.tab-pane.fade.align
+                            .well.text-center
+                              h1
+                                | Coming Soon....... 
+                          #vehicletrips.tab-pane.fade.align
+                            .well.text-center
+                              h1
+                                | Coming Soon....... 
+                #contact.tab-pane.fade.align
+                  .row.dashboard-stats.container
+                    .col-md-2.col-sm-6.col-md-offset-6
+                      section.panel.panel-box
+                        .panel-left.panel-icon.bg-lovender
+  
+                          i.fa.fa-phone
+                        .panel-right.panel-icon.bg-reverse
+                          p.text-muted.no-margin.text
+                            span 
+                          p.size-h1 Contact
+                  .container(style='background-color: #eaeaea;width: 100%;height:100%;border-radius: 1px')
+                    .row
+                      .col-md-12(style='text-align: center;')
+                        h1(style='color: grey;font-size: 45px')
+                          b For any queries,please contact
+                      .col-md-12.img-responsive(style='text-align: center;')
+                        img(src='images/thubvcard.jpg', width='620px', draggable="false")    
+                    br
+                    br 
+    // MAIN CONTENT
+    // main content end
+    // js placed at the end of the document so the pages load faster
+    script(src='javascripts/jquery.js')
+    script(src='javascripts/jquery-1.11.1.min.js')
+    script(src='javascripts/bootstrap.min.js')
+    script(src='javascripts/jquery-ui-1.9.2.custom.min.js')
+    script(src='javascripts/jquery.ui.touch-punch.min.js')
+    script(src='javascripts/jquery.dcjqaccordion.2.7.js')
+    script(src='javascripts/jquery.scrollTo.min.js')
+    script(src='javascripts/jquery.nicescroll.js')
+    //datatables
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js")
+    script(src='javascripts/angular-datatables.buttons.min.js')
+    script(src='javascripts/angular-datatables.min.js')
+    script(src='javascripts/jquery.dataTables.min.js')
+    script(src='javascripts/dataTables.buttons.min.js')
+    script(src='javascripts/buttons.colVis.min.js')
+    script(src='javascripts/buttons.flash.min.js')
+    script(src='javascripts/buttons.print.min.js')
+    script(src='javascripts/buttons.html5.min.js')
+    script(src='javascripts/jszip.min.js')
+    script(src='javascripts/pdfmake.min.js')
+    script(src='javascripts/vfs_fonts.js')
+    // common script and datatables for all pages
+    script(src='javascripts/common-scripts.js')
+    //angular scripts
+    script(src='angular/fuels.js')
+    script.
+      $(document).ready(function () {
+        $('.dataTables-example1').dataTable({
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'copy',
+                  text: '<i class="fa fa-files-o"></i> Copy',
+                  title: 'Bus Report'
+              },
+              {
+                  extend: 'csvHtml5',
+                  text: '<i class="fa fa-file-text-o"></i> csv',
+                  title: 'Bus Report'
+              },
+              {
+                  extend: 'excelHtml5',
+                  text: '<i class="fa fa-file-excel-o"></i> Excel',
+                  title: 'Bus Report'
+              },
+              {
+                  extend: 'pdfHtml5',
+                  text: '<i class="fa fa-file-pdf-o"></i> pdf',
+                  title: 'Bus Report'
+              },
+              {
+                  extend: 'print',
+                  text: '<i class="fa fa-print" aria-hidden="true"></i> Print',
+                  title: 'Bus Report'
+              }
+          ]
+        });
+      });  
+    
