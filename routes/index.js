@@ -68,38 +68,38 @@ var xlstojson = require("xls-to-json-lc");
 var xlsxtojson = require("xlsx-to-json-lc");
 
 //Power BI sql connections
-//var mysql = require("mysql");
+var mysql = require("mysql");
 
 // DB Config
-// var db_config = {
-//   host: "172.7.67.45",
-//   user: "root",
-//   password: "Adminroot@1112",
-//   database: "vms",
-// };
+var db_config = {
+  host: "172.7.67.45",
+  user: "root",
+  password: "Adminroot@1112",
+  database: "vms",
+};
 
-//var connection;
-// function handleDisconnect() {
-//   connection = mysql.createConnection(db_config);
+var connection;
+function handleDisconnect() {
+  connection = mysql.createConnection(db_config);
 
-//   connection.connect(function (err) {
-//     if (err) {
-//       console.log("error when connecting to db:", err);
-//       setTimeout(handleDisconnect, 2000);
-//     }
-//   });
+  connection.connect(function (err) {
+    if (err) {
+      console.log("error when connecting to db:", err);
+      setTimeout(handleDisconnect, 2000);
+    }
+  });
 
-//   connection.on("error", function (err) {
-//     console.log("db error", err);
-//     if (err.code === "PROTOCOL_CONNECTION_LOST") {
-//       handleDisconnect();
-//     } else {
-//       throw err;
-//     }
-//   });
-// }
+  connection.on("error", function (err) {
+    console.log("db error", err);
+    if (err.code === "PROTOCOL_CONNECTION_LOST") {
+      handleDisconnect();
+    } else {
+      throw err;
+    }
+  });
+}
 //handle Disconnect
-// handleDisconnect();
+ handleDisconnect();
 
 /* GET home page. */
 router.get("/", function (req, res) {
@@ -417,6 +417,11 @@ router.get("/getBranchdata", function (req, res) {
   // branch.find({}, function(err,docs){
   //   res.send(docs)
   // })
+
+  console.log("API HIT: /getBranchdata");
+
+  console.log("USERNAME:", req.session.user.username);
+
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     // console.log(req.session.user)
@@ -633,14 +638,25 @@ router.get("/getBranchdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      branch.find({ name: /UNIVERSITY/ }, function (err, docs) {
-        res.send(docs);
-      });
+      console.log("University block executed");
+      branch.find(
+        {
+          name: {
+            $in: ["UNIVERSITY-AA", "UNIVERSITY-SES"],
+          },
+        },
+        function (err, docs) {
+          console.log("University docs:", docs);
+          res.send(docs);
+        },
+      );
     }
 
     // TANUKU
     else if (req.session.user.username == "adctnk") {
+      console.log("Tanuku block executed");
       branch.find({ name: /TANUKU/ }, function (err, docs) {
+        console.log("Tanuku docs:", docs);
         res.send(docs);
       });
     }
@@ -1626,7 +1642,7 @@ router.get("/getStagedata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      stages.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      stages.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -1906,7 +1922,7 @@ router.get("/getRoutedata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      route.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      route.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -2221,7 +2237,7 @@ router.get("/getRoutedetailsdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      routedetails.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      routedetails.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -2701,7 +2717,7 @@ router.get("/getOfficedata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      officestaff.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      officestaff.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -2971,7 +2987,7 @@ router.get("/getStaffmeetingdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      staffmeeting.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      staffmeeting.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -3379,7 +3395,7 @@ router.get("/getBusStaffdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      busstaff.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      busstaff.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -3683,7 +3699,7 @@ router.get("/getBusCleanerdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      buscleaner.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      buscleaner.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -4179,7 +4195,7 @@ router.get("/getBranchvehicledata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      branchvehicle.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      branchvehicle.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -5037,7 +5053,7 @@ router.get("/getBusfilldata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      busfill.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      busfill.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -5285,7 +5301,7 @@ router.post("/getBusfilldata1", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      busfill.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      busfill.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -5735,7 +5751,7 @@ router.get("/vehicletripexceed", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehicletripdata.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehicletripdata.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -6145,7 +6161,7 @@ router.get("/getVehicleTripdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehicletripdata.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehicletripdata.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -6511,7 +6527,7 @@ router.post("/gettingvehicletripdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehicletripdata.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehicletripdata.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -6795,7 +6811,7 @@ router.get("/getBusremarks", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      busremarks.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      busremarks.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -7108,7 +7124,7 @@ router.get("/getVehicleAccident", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehicleaccident.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehicleaccident.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -7522,7 +7538,7 @@ router.post("/getVehicleservice1", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehicleservice.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehicleservice.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -7758,7 +7774,7 @@ router.get("/getVehicleservice", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehicleservice.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehicleservice.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -8094,7 +8110,7 @@ router.get("/getRtadata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      rta.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      rta.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -8473,7 +8489,7 @@ router.get("/RtaExpired", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      rta.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      rta.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -8757,7 +8773,7 @@ router.get("/getInsurancedata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      insurance.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      insurance.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -9140,7 +9156,7 @@ router.get("/InsuranceExpired", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      insurance.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      insurance.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -9416,7 +9432,7 @@ router.get("/getPollutiondata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      pollution.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      pollution.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -9778,7 +9794,7 @@ router.get("/PollutionExpired", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      pollution.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      pollution.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -10049,7 +10065,7 @@ router.get("/getFitnessdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      fitness.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      fitness.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -10397,7 +10413,7 @@ router.get("/FitnessExpired", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      fitness.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      fitness.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -10671,7 +10687,7 @@ router.get("/getRoadtaxdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      roadtax.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      roadtax.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -11022,7 +11038,7 @@ router.get("/RoadtaxExpired", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      roadtax.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      roadtax.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -11299,7 +11315,7 @@ router.get("/getRoadpermitdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      roadpermit.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      roadpermit.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -11645,7 +11661,7 @@ router.get("/RoadpermitExpired", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      roadpermit.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      roadpermit.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -11929,7 +11945,7 @@ router.get("/getInsuranceClaimdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      insuranceclaim.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      insuranceclaim.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -12243,7 +12259,7 @@ router.get("/getVehicleChallandata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehiclechallan.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehiclechallan.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -12562,7 +12578,7 @@ router.get("/getNewvehicletyre", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehicletyres.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehicletyres.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -12861,7 +12877,7 @@ router.get("/getRepvehicletyre", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      replacedvehicle.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      replacedvehicle.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -13303,7 +13319,7 @@ router.get("/getDailyvehicledata1", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      dailyvehicle.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      dailyvehicle.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -13540,7 +13556,7 @@ router.post("/getDailyvehicledata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      dailyvehicle.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      dailyvehicle.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -13776,7 +13792,7 @@ router.get("/getDailyvehicle", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      dailyvehicle.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      dailyvehicle.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -14076,7 +14092,7 @@ router.get("/getVehiclerepair", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehiclerepair.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehiclerepair.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -14368,7 +14384,7 @@ router.post("/getVehiclerepair1", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehiclerepair.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehiclerepair.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -14661,7 +14677,7 @@ router.get("/getvcrdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vcr.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vcr.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -15012,7 +15028,7 @@ router.get("/getVehiclewisedata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehiclewisebattery.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      vehiclewisebattery.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -15338,7 +15354,7 @@ router.get("/getbatterychangedata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      batterychangereport.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      batterychangereport.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -15617,7 +15633,7 @@ router.get("/getTyrestatusdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      tyrestatus.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      tyrestatus.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -15902,7 +15918,7 @@ router.get("/getBusbreakedowndata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      busbreakdown.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      busbreakdown.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -16244,7 +16260,7 @@ router.post("/getbusbreakereportdates", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      busbreakdown.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      busbreakdown.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -16985,7 +17001,7 @@ router.post("/getAdBusfilldata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      AdBlueBusfill.find({ name: /UNIVERSITY/ }, function (err, docs) {
+      AdBlueBusfill.find({ branch: /UNIVERSITY/ }, function (err, docs) {
         res.send(docs);
       });
     }
