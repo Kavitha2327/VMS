@@ -1,2 +1,0 @@
-{ "_id" : { "$oid" : "5eb8cd6e3084a01b54fa4dea" }, "item" : "DANGER LIGHTS(LED- ROUND) YELLOW", "vehicleno" : "AP05TU7041", "raised" : null, "issued" : "K N N REDDY", "quantity" : "2", "date" : "17-04-2020" }
-{ "_id" : { "$oid" : "5eb8cda93084a01b54fa4deb" }, "item" : "DANGER LIGHTS(LED- ROUND) WHITE", "vehicleno" : "AP05TU7041", "raised" : null, "issued" : "K N N REDDY", "quantity" : "2", "date" : "17-04-2020" }
