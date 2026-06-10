@@ -125,7 +125,52 @@ html(lang='en')
       td select{
         width:150px !important;
         border:1px solid red !important;
-      } 
+      }
+      /* Premium Glassmorphic Fullscreen Loader */
+      .global-loader-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99999;
+        background: rgba(44, 62, 80, 0.7);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: #ffffff;
+        transition: opacity 0.3s ease;
+      }
+      .global-loader-content {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 35px 55px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        text-align: center;
+        animation: float-animation 3s ease-in-out infinite;
+      }
+      .global-loader-spinner {
+        font-size: 55px;
+        color: #53e3a6;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px rgba(83, 227, 166, 0.5);
+      }
+      .global-loader-text {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 18px;
+        font-weight: 300;
+        letter-spacing: 1.5px;
+        margin: 0;
+      }
+      @keyframes float-animation {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+      }
   body(ng-app='myapp')
     section#container
       // header start
@@ -2198,6 +2243,37 @@ html(lang='en')
     script(src='javascripts/common-scripts.js')
     //angular scripts
     script(src='angular/fuels.js')
+    script.
+      angular.module("myapp").factory('loadingInterceptor', ['$q', '$rootScope', function($q, $rootScope) {
+        var activeRequests = 0;
+        return {
+          request: function(config) {
+            if (activeRequests === 0) {
+              $rootScope.globalLoading = true;
+            }
+            activeRequests++;
+            return config;
+          },
+          response: function(response) {
+            activeRequests--;
+            if (activeRequests <= 0) {
+              activeRequests = 0;
+              $rootScope.globalLoading = false;
+            }
+            return response;
+          },
+          responseError: function(rejection) {
+            activeRequests--;
+            if (activeRequests <= 0) {
+              activeRequests = 0;
+              $rootScope.globalLoading = false;
+            }
+            return $q.reject(rejection);
+          }
+        };
+      }]).config(['$httpProvider', function($httpProvider) {
+        $httpProvider.interceptors.push('loadingInterceptor');
+      }]);
     script.
       $(document).ready(function () {
         $('.dataTables-example1').dataTable({

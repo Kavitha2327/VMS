@@ -661,6 +661,20 @@ router.get("/getBranchdata", function (req, res) {
       });
     }
 
+   //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      branch.find(
+        {
+          name: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
 
   }
 });
@@ -1655,6 +1669,20 @@ router.get("/getStagedata", function (req, res) {
         res.send(docs);
       });
     }
+
+     //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      stages.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
   }
 });
 
@@ -1934,6 +1962,20 @@ router.get("/getRoutedata", function (req, res) {
       route.find({ branch: /TANUKU/ }, function (err, docs) {
         res.send(docs);
       });
+    }
+
+     //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      route.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
     }
 
   }
@@ -2250,6 +2292,21 @@ router.get("/getRoutedetailsdata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      routedetails.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -2730,6 +2787,21 @@ router.get("/getOfficedata", function (req, res) {
         res.send(docs);
       });
     }
+
+     //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      officestaff.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 //----------------------------------------------Staffmeeting Data---------------------------------------------------
@@ -3000,6 +3072,21 @@ router.get("/getStaffmeetingdata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      staffmeeting.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -3408,6 +3495,21 @@ router.get("/getBusStaffdata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      busstaff.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -3712,6 +3814,21 @@ router.get("/getBusCleanerdata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      buscleaner.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -4207,6 +4324,20 @@ router.get("/getBranchvehicledata", function (req, res) {
       branchvehicle.find({ branch: /TANUKU/ }, function (err, docs) {
         res.send(docs);
       });
+    }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      branchvehicle.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
     }
 
   }
@@ -5066,6 +5197,21 @@ router.get("/getBusfilldata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      busfill.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -5314,6 +5460,21 @@ router.post("/getBusfilldata1", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      busfill.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -5764,6 +5925,21 @@ router.get("/vehicletripexceed", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehicletripdata.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 //editing Busfill
@@ -6163,17 +6339,33 @@ router.get("/getVehicleTripdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehicletripdata.find({ branch: /UNIVERSITY/ }, function (err, docs) {
+      vehicletripdata.find({ branch: /UNIVERSITY/, uploaddate: date }, function (err, docs) {
         res.send(docs);
       });
     }
 
     // TANUKU
     else if (req.session.user.username == "adctnk") {
-      vehicletripdata.find({ branch: /TANUKU/ }, function (err, docs) {
+      vehicletripdata.find({ branch: /TANUKU/, uploaddate: date }, function (err, docs) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehicletripdata.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+          uploaddate: date,
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -6529,16 +6721,31 @@ router.post("/gettingvehicletripdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      vehicletripdata.find({ branch: /UNIVERSITY/ }, function (err, docs) {
+      vehicletripdata.find({ branch: /UNIVERSITY/, Timestamp: { $gte: ftime, $lte: ttime } }, function (err, docs) {
         res.send(docs);
       });
     }
 
     // TANUKU
     else if (req.session.user.username == "adctnk") {
-      vehicletripdata.find({ branch: /TANUKU/ }, function (err, docs) {
+      vehicletripdata.find({ branch: /TANUKU/, Timestamp: { $gte: ftime, $lte: ttime } }, function (err, docs) {
         res.send(docs);
       });
+    }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehicletripdata.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+          Timestamp: { $gte: ftime, $lte: ttime },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
     }
   }
 });
@@ -6824,6 +7031,21 @@ router.get("/getBusremarks", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      busremarks.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 //-----------------------------------------Vehicle Accidents ----------------------------------------------------
@@ -7137,6 +7359,21 @@ router.get("/getVehicleAccident", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehicleaccident.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -7551,6 +7788,21 @@ router.post("/getVehicleservice1", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehicleservice.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -7787,6 +8039,21 @@ router.get("/getVehicleservice", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehicleservice.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -8123,6 +8390,22 @@ router.get("/getRtadata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      rta.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
+
   }
 });
 
@@ -8502,6 +8785,21 @@ router.get("/RtaExpired", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      rta.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -8786,6 +9084,22 @@ router.get("/getInsurancedata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      insurance.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
+
   }
 });
 
@@ -9169,6 +9483,17 @@ router.get("/InsuranceExpired", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      insurance.find(
+        { status: "on", branch: { branch: /ADITYA PUBLIC SCHOOL(ASHOK NAGAR)/ } },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -9445,6 +9770,21 @@ router.get("/getPollutiondata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      pollution.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -9807,6 +10147,23 @@ router.get("/PollutionExpired", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      pollution.find(
+        {
+          status: "on",
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
+
   }
 });
 
@@ -10078,6 +10435,21 @@ router.get("/getFitnessdata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      fitness.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -10426,6 +10798,21 @@ router.get("/FitnessExpired", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      fitness.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -10700,6 +11087,21 @@ router.get("/getRoadtaxdata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      roadtax.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -11051,6 +11453,21 @@ router.get("/RoadtaxExpired", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      roadtax.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -11328,6 +11745,21 @@ router.get("/getRoadpermitdata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      roadpermit.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -11674,6 +12106,21 @@ router.get("/RoadpermitExpired", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      roadpermit.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -11958,6 +12405,21 @@ router.get("/getInsuranceClaimdata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      insuranceclaim.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -12272,6 +12734,21 @@ router.get("/getVehicleChallandata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehiclechallan.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -12591,6 +13068,21 @@ router.get("/getNewvehicletyre", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehicletyres.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 //-----------------------------------------Replaced Vehicle Tyre ----------------------------------------------------
@@ -12890,6 +13382,21 @@ router.get("/getRepvehicletyre", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      replacedvehicle.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 //----------------------------------------Categories Data-----------------------------------------------------
@@ -13332,6 +13839,21 @@ router.get("/getDailyvehicledata1", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      dailyvehicle.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -13569,6 +14091,21 @@ router.post("/getDailyvehicledata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      dailyvehicle.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -13805,6 +14342,21 @@ router.get("/getDailyvehicle", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      dailyvehicle.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -14105,6 +14657,21 @@ router.get("/getVehiclerepair", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehiclerepair.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -14397,6 +14964,21 @@ router.post("/getVehiclerepair1", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehiclerepair.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -14690,6 +15272,21 @@ router.get("/getvcrdata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vcr.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -15041,6 +15638,21 @@ router.get("/getVehiclewisedata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      vehiclewisebattery.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -15367,6 +15979,21 @@ router.get("/getbatterychangedata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      batterychangereport.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -15646,6 +16273,21 @@ router.get("/getTyrestatusdata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      tyrestatus.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -15931,6 +16573,21 @@ router.get("/getBusbreakedowndata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      busbreakdown.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -16273,6 +16930,21 @@ router.post("/getbusbreakereportdates", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      busbreakdown.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
@@ -17014,6 +17686,21 @@ router.post("/getAdBusfilldata", function (req, res) {
         res.send(docs);
       });
     }
+
+    //ASHOK NAGAR
+    else if (req.session.user.username == "adcasn") {
+      AdBlueBusfill.find(
+        {
+          branch: {
+            $in: ["ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-AA", "ADITYA PUBLIC SCHOOL(ASHOK NAGAR)-SES"],
+          },
+        },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    }
+
   }
 });
 
