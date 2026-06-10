@@ -418,7 +418,7 @@ router.get("/getBranchdata", function (req, res) {
   //   res.send(docs)
   // })
 
-  console.log("API HIT: /getBranchdata");
+  // console.log("API HIT: /getBranchdata");
 
   console.log("USERNAME:", req.session.user.username);
 
@@ -638,7 +638,7 @@ router.get("/getBranchdata", function (req, res) {
 
     //university
     else if (req.session.user.username == "aus") {
-      console.log("University block executed");
+      // console.log("University block executed");
       branch.find(
         {
           name: {
@@ -646,7 +646,7 @@ router.get("/getBranchdata", function (req, res) {
           },
         },
         function (err, docs) {
-          console.log("University docs:", docs);
+          // console.log("University docs:", docs);
           res.send(docs);
         },
       );
@@ -654,9 +654,9 @@ router.get("/getBranchdata", function (req, res) {
 
     // TANUKU
     else if (req.session.user.username == "adctnk") {
-      console.log("Tanuku block executed");
+      // console.log("Tanuku block executed");
       branch.find({ name: /TANUKU/ }, function (err, docs) {
-        console.log("Tanuku docs:", docs);
+        // console.log("Tanuku docs:", docs);
         res.send(docs);
       });
     }
@@ -1445,6 +1445,7 @@ router.get("/getStagedata", function (req, res) {
       });
     } else if (req.session.user.username == "adcamp") {
       stages.find({ branch: /AMALAPURAM/ }, function (err, docs) {
+        console.log("stage docs", docs);
         res.send(docs);
       });
     } else if (req.session.user.username == "adcbvrm") {
@@ -1643,6 +1644,7 @@ router.get("/getStagedata", function (req, res) {
     //university
     else if (req.session.user.username == "aus") {
       stages.find({ branch: /UNIVERSITY/ }, function (err, docs) {
+        console.log("stage docs", docs);
         res.send(docs);
       });
     }

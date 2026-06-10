@@ -209,7 +209,7 @@ html(lang='en')
                                 a.list-group-item.active.main-color-bg(href='#')
                                   i.fa.fa-battery-full
                                   span(style='margin-left:10px')  Battery
-                                each data in (battery || [])
+                                each data in battery
                                   a.list-group-item(href='#')
                                     span.badge #{data.Count}
                                     |  #{data._id.Status}
@@ -219,7 +219,7 @@ html(lang='en')
                                 a.list-group-item.active.main-color-bg(href='#')
                                   i.fa.fa-bus
                                   span(style='margin-left:10px')  Vehicle Tyres
-                                each data2 in (tyres || [])
+                                each data2 in tyres
                                   a.list-group-item(href='#')
                                     span.badge #{data2.Count}
                                     |  #{data2._id.Status}                    
