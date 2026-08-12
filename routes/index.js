@@ -101,6 +101,23 @@ function handleDisconnect() {
 //handle Disconnect
  handleDisconnect();
 
+function getAdminVehicleRegNos(req, callback) {
+  if (req.session && req.session.user && req.session.user.role === "BRANCH_ADMIN") {
+    branchvehicle.find({
+      branch: { $in: req.session.user.branches || [] },
+      category: req.session.user.branch
+    }, function (err, vehicles) {
+      if (err || !vehicles) {
+        return callback(null, []);
+      }
+      var regNos = vehicles.map(function(v) { return v.vehicleregno; }).filter(Boolean);
+      callback(null, regNos);
+    });
+  } else {
+    callback(null, null);
+  }
+}
+
 /* GET home page. */
 router.get("/", function (req, res) {
   res.render("index");
@@ -425,7 +442,11 @@ router.get("/getBranchdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     // console.log(req.session.user)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      branch.find({ name: { $in: req.session.user.branches || [] } }, function (err, docs) {
+        res.send(docs);
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc" ||
@@ -729,7 +750,13 @@ router.get("/getRepairBillsdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        repairbills.find({ busnumber: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -944,7 +971,18 @@ router.post("/getRepairBillsdata1", function (req, res) {
   console.log(req.body.val);
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        if (regNos.indexOf(req.body.val) !== -1) {
+          repairbills.find({ $or: [ { busnumber: req.body.val }, { vehicleregno: req.body.val } ] }, function (err, docs) {
+            console.log(docs);
+            res.send(docs);
+          });
+        } else {
+          res.send([]);
+        }
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -1445,7 +1483,11 @@ router.get("/getStagedata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     // console.log(req.session.user)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      stages.find({ branch: { $in: req.session.user.branches || [] } }, function (err, docs) {
+        res.send(docs);
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -1742,7 +1784,11 @@ router.get("/getRoutedata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      route.find({ branch: { $in: req.session.user.branches || [] } }, function (err, docs) {
+        res.send(docs);
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -2065,7 +2111,13 @@ router.get("/getRoutedetailsdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        routedetails.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -2558,7 +2610,11 @@ router.post("/RemoveOffice", function (req, res) {
 router.get("/getOfficedata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      officestaff.find({ branch: { $in: req.session.user.branches || [] } }, function (err, docs) {
+        res.send(docs);
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -2844,7 +2900,11 @@ router.get("/getStaffmeetingdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      staffmeeting.find({ branch: { $in: req.session.user.branches || [] } }, function (err, docs) {
+        res.send(docs);
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -3270,7 +3330,13 @@ router.post("/RemoveBusStaff", function (req, res) {
 router.get("/getBusStaffdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        busstaff.find({ vehicleno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -3589,7 +3655,11 @@ router.post("/RemoveBusCleaner", function (req, res) {
 router.get("/getBusCleanerdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      buscleaner.find({ branch: { $in: req.session.user.branches || [] } }, function (err, docs) {
+        res.send(docs);
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -4056,6 +4126,7 @@ router.post("/BranchvehicleData", function (req, res) {
     staffname: req.body.staffname,
     vehicleregno: req.body.vehicleregno,
     model: req.body.model,
+    category: req.body.category,
     purchasedate: moment(req.body.purchasedate).format("DD-MM-YYYY"),
     servicedate: moment(req.body.servicedate).format("DD-MM-YYYY"),
   };
@@ -4097,7 +4168,14 @@ router.get("/getBranchvehicledata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      branchvehicle.find({
+        branch: { $in: req.session.user.branches || [] },
+        category: req.session.user.branch
+      }, function (err, docs) {
+        res.send(docs);
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -4357,6 +4435,7 @@ router.post("/EditBranchvehicle", function (req, res) {
         staffname: req.body.staffname,
         vehicleregno: req.body.vehicleregno,
         model: req.body.model,
+        category: req.body.category,
         purchasedate: moment(req.body.purchasedate).format("DD-MM-YYYY"),
         servicedate: moment(req.body.servicedate).format("DD-MM-YYYY"),
       },
@@ -4957,7 +5036,13 @@ router.get("/getBusfilldata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        busfill.find({ date: dates, regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -5221,7 +5306,16 @@ router.post("/getBusfilldata1", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function (err, regNos) {
+        busfill.find(
+          { regno: req.body.val, regno: { $in: regNos } },
+          function (err, docs) {
+            res.send(docs);
+          },
+        );
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -5639,7 +5733,16 @@ router.get("/vehicletripexceed", function (req, res) {
   var date = moment().format("DD-MM-YYYY");
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        vehicletripdata.find(
+          { regno: { $in: regNos }, result: /exceed/, uploaddate: date },
+          function (err, docs32) {
+            res.send(docs32);
+          }
+        );
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -6036,7 +6139,13 @@ router.get("/getVehicleTripdata", function (req, res) {
         }
       }
     });
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        vehicletripdata.find({ regno: { $in: regNos }, uploaddate: date }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vc"
     ) {
@@ -6386,7 +6495,14 @@ router.post("/gettingvehicletripdata", function (req, res) {
     //   }
     // })
     // console.log("fdate"+fdate+"tdate"+tdate)
-    if (req.session.user.username == "vms") {
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      vehicletripdata.find(
+        { branch: { $in: req.session.user.branches || [] }, Timestamp: { $gte: ftime, $lte: ttime } },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    } else if (req.session.user.username == "vms") {
       vehicletripdata.find(
         { Timestamp: { $gte: ftime, $lte: ttime } },
         function (err, docs) {
@@ -6806,7 +6922,11 @@ router.get("/getBusremarks", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      busremarks.find({ branch: { $in: req.session.user.branches || [] } }, function (err, docs) {
+        res.send(docs);
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -7131,7 +7251,13 @@ router.get("/getVehicleAccident", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        vehicleaccident.find({ vehicleregno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -7477,7 +7603,14 @@ router.post("/RemoveVehicleservice", function (req, res) {
 router.post("/getVehicleservice1", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      vehicleservice.find(
+        { vehicleregno: req.body.val, branch: { $in: req.session.user.branches || [] } },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -7811,7 +7944,13 @@ router.get("/getVehicleservice", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        vehicleservice.find({ vehicleregno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -8168,7 +8307,13 @@ router.get("/getRtadata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        rta.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -8532,7 +8677,13 @@ router.get("/RtaExpired", function (req, res) {
     res.locals.user = req.session.user;
     var date = moment().format("DD-MM-YYYY");
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        rta.find({ expireddate: date, regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -8859,7 +9010,13 @@ router.get("/getInsurancedata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        insurance.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -9190,7 +9347,13 @@ router.get("/InsuranceExpired", function (req, res) {
       }
     });
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        insurance.find({ status: "on", regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -9545,7 +9708,13 @@ router.get("/getPollutiondata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        pollution.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -9862,7 +10031,13 @@ router.get("/PollutionExpired", function (req, res) {
       }
     });
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        pollution.find({ status: "on", regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -10213,7 +10388,13 @@ router.get("/getFitnessdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        fitness.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -10525,7 +10706,13 @@ router.get("/FitnessExpired", function (req, res) {
       }
     });
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        fitness.find({ status: "on", regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -10865,7 +11052,13 @@ router.get("/getRoadtaxdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        roadtax.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -11180,7 +11373,13 @@ router.get("/RoadtaxExpired", function (req, res) {
       }
     });
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        roadtax.find({ status: "on", regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -11520,7 +11719,13 @@ router.get("/getRoadpermitdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        roadpermit.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -11840,7 +12045,13 @@ router.get("/RoadpermitExpired", function (req, res) {
       }
     });
 
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        roadpermit.find({ status: "on", regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -12177,7 +12388,13 @@ router.get("/getInsuranceClaimdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        insuranceclaim.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -12506,7 +12723,13 @@ router.get("/getVehicleChallandata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        vehiclechallan.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -12840,7 +13063,13 @@ router.get("/getNewvehicletyre", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        vehicletyres.find({ vehicleregno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -13154,7 +13383,13 @@ router.get("/getRepvehicletyre", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        replacedvehicle.find({ vehicleregno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -13611,7 +13846,13 @@ router.get("/getDailyvehicledata1", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        dailyvehicle.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -13863,7 +14104,23 @@ router.post("/getDailyvehicledata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        if (req.body.val) {
+          if (regNos.indexOf(req.body.val) !== -1) {
+            dailyvehicle.find({ regno: req.body.val }, function(err, docs) {
+              res.send(docs);
+            });
+          } else {
+            res.send([]);
+          }
+        } else {
+          dailyvehicle.find({ regno: { $in: regNos } }, function(err, docs) {
+            res.send(docs);
+          });
+        }
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -14114,7 +14371,13 @@ router.get("/getDailyvehicle", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        dailyvehicle.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -14429,7 +14692,13 @@ router.get("/getVehiclerepair", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        vehiclerepair.find({ regno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -14680,7 +14949,23 @@ router.post("/getVehiclerepair1", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        if (req.body.val) {
+          if (regNos.indexOf(req.body.val) !== -1) {
+            vehiclerepair.find({ regno: req.body.val }, function(err, docs) {
+              res.send(docs);
+            });
+          } else {
+            res.send([]);
+          }
+        } else {
+          vehiclerepair.find({ regno: { $in: regNos } }, function(err, docs) {
+            res.send(docs);
+          });
+        }
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -15050,7 +15335,13 @@ router.get("/getvcrdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        vcr.find({ vehicleregno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -15398,7 +15689,13 @@ router.get("/getVehiclewisedata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        vehiclewisebattery.find({ vehicleregno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -15736,7 +16033,18 @@ router.get("/getbatterychangedata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        batterychangereport.find({
+          $or: [
+            { fromregno: { $in: regNos } },
+            { toregno: { $in: regNos } }
+          ]
+        }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -16048,7 +16356,13 @@ router.get("/getTyrestatusdata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        tyrestatus.find({ vehicleregno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -16345,7 +16659,13 @@ router.get("/getBusbreakedowndata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        busbreakdown.find({ busno: { $in: regNos } }, function(err, docs) {
+          res.send(docs);
+        });
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
@@ -16612,7 +16932,14 @@ router.post("/getbusbreakereportdates", function (req, res) {
     //     res.send(docs)
     //   }
     // })
-    if (req.session.user.username == "vms") {
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      busbreakdown.find(
+        { branch: { $in: req.session.user.branches || [] }, timestamp: { $gte: ftime, $lte: ttime } },
+        function (err, docs) {
+          res.send(docs);
+        },
+      );
+    } else if (req.session.user.username == "vms") {
       busbreakdown.find(
         { timestamp: { $gte: ftime, $lte: ttime } },
         function (err, docs) {
@@ -17456,7 +17783,23 @@ router.post("/getAdBusfilldata", function (req, res) {
   if (req.session && req.session.user) {
     res.locals.user = req.session.user;
     //console.log(req.session.user.branch)
-    if (
+    if (req.session.user.role === "BRANCH_ADMIN") {
+      getAdminVehicleRegNos(req, function(err, regNos) {
+        if (req.body.val) {
+          if (regNos.indexOf(req.body.val) !== -1) {
+            AdBlueBusfill.find({ regno: req.body.val }, function(err, docs) {
+              res.send(docs);
+            });
+          } else {
+            res.send([]);
+          }
+        } else {
+          AdBlueBusfill.find({ regno: { $in: regNos } }, function(err, docs) {
+            res.send(docs);
+          });
+        }
+      });
+    } else if (
       req.session.user.username == "vms" ||
       req.session.user.username == "vmskkd" ||
       req.session.user.username == "vc"
