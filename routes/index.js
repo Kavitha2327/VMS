@@ -5659,12 +5659,17 @@ router.post("/postVehicleTrip", function (req, res) {
   } else {
     var result = "";
   }
+  var dateString = moment(req.body.date).format("DD-MM-YYYY");
+  var date = moment(req.body.date).format("YYYY-MM-DD");
+  var temp = moment().format("HH:mm");
+  var timestamp = gettimestamp(dateString, temp);
+
   var data = {
     society: req.body.society,
     branch: req.body.branch,
     regno: req.body.regno,
     routename: req.body.routename,
-    date: moment(req.body.date).format("DD-MM-YYYY"),
+    date: dateString,
     capacity: req.body.capacity,
     students: req.body.students,
     strength: req.body.strength,
@@ -5674,12 +5679,10 @@ router.post("/postVehicleTrip", function (req, res) {
     distance: parseInt(req.body.distance),
     result: result,
     remarks: req.body.remarks,
+    Timestamp: timestamp,
     uploaddate: moment().format("DD-MM-YYYY"),
   };
 
-  var date = moment(req.body.date).format("YYYY-MM-DD");
-  var temp = moment().format("HH:mm");
-  var timestamp = gettimestamp(date, temp);
   // console.log(data)
   vehicletripdata.insert(data, function (err, docs) {
     // console.log(docs);
@@ -6496,9 +6499,13 @@ router.post("/gettingvehicletripdata", function (req, res) {
     // })
     // console.log("fdate"+fdate+"tdate"+tdate)
     if (req.session.user.role === "BRANCH_ADMIN") {
+      console.log(req.session.user.role)
+      console.log("kedar")
       vehicletripdata.find(
         { branch: { $in: req.session.user.branches || [] }, Timestamp: { $gte: ftime, $lte: ttime } },
         function (err, docs) {
+          console.log("again kedar")
+          // console.log(docs)
           res.send(docs);
         },
       );
@@ -6862,7 +6869,11 @@ router.post("/gettingvehicletripdata", function (req, res) {
           res.send(docs);
         },
       );
+    } else {
+      res.send([]);
     }
+  } else {
+    res.send([]);
   }
 });
 

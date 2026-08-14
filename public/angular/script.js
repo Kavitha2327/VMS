@@ -6362,24 +6362,13 @@ app.controller("VehicletripController", [
       const yyyy = today.getFullYear();
       let mm = today.getMonth() + 1; // Months start at 0!
       let dd = today.getDate();
-      let formattedToday;
-      let formattedTodays;
-      if (dd < 10 && mm < 10) {
-        formattedToday = "0" + dd + "-" + "0" + mm + "-" + yyyy;
-      } else {
-        formattedToday = dd + "-" + "0" + mm + "-" + yyyy;
-      }
+      let formattedToday = (dd < 10 ? "0" + dd : dd) + "-" + (mm < 10 ? "0" + mm : mm) + "-" + yyyy;
 
       const todays = new Date(tdate);
       const yyyy1 = todays.getFullYear();
       let mm1 = todays.getMonth() + 1; // Months start at 0!
       let dd1 = todays.getDate();
-
-      if (dd1 < 10 && mm1 < 10) {
-        formattedTodays = "0" + dd1 + "-" + "0" + mm1 + "-" + yyyy1;
-      } else {
-        formattedTodays = dd1 + "-" + "0" + mm1 + "-" + yyyy1;
-      }
+      let formattedTodays = (dd1 < 10 ? "0" + dd1 : dd1) + "-" + (mm1 < 10 ? "0" + mm1 : mm1) + "-" + yyyy1;
 
       // console.log(formattedToday, formattedTodays)
       const ee = {};
