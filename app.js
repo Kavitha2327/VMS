@@ -15,7 +15,7 @@ app.use(session({
   secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
   // duration: 120 * 60 * 1000,
   httpOnly: true,
-  secure: true,
+  secure: false,
   ephemeral: true
 }));
 // view engine setup
