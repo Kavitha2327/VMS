@@ -5222,7 +5222,7 @@ html(lang='en')
                                                       i.btn.btn-info.fa.fa-edit(ng-hide='AdbusfillEdit', ng-click='AdbusfillEdit = true; editAdBusfill(Adbusfills1)')
                                                       i.btn.btn-info.fa.fa-save(ng-show='AdbusfillEdit', ng-click='AdbusfillEdit = false; editsaveAdBusfill(Adbusfills1)')
                                                     td
-                                                      i.btn.btn-danger.fa.fa-trash(ng-click='removeAdbusfillItem($index,Adbusfills)')
+                                                      i.btn.btn-danger.fa.fa-trash(ng-click='removeAdbusfillItem($index,Adbusfills1)')
                                     #Adbusfillgeneratedata.tab-pane.fade.align
                                       .col-lg-12
                                         .col-lg-3
@@ -5407,68 +5407,126 @@ html(lang='en')
                                   br
                                   br  
                                   .col-lg-12
-                                    button.btn.btn-info.btn-lg(type='button', ng-click='getBusfilldata()', style='margin-right:20px;') View Data
-                                    button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal30', ng-click="getdata()") Add New
-                                    #myModal30.modal.fade(role='dialog')
+                                    button.btn.btn-info.btn-lg(type='button', ng-click='getAdBusfilldata1()', style='margin-right:20px;') View Data
+                                    button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal3_0', ng-click="getdata()") Add New
+                                    #myModal3_0.modal.fade(role='dialog')
                                       .modal-dialog
                                         .modal-content
                                           .modal-header
                                             button.close(type='button', data-dismiss='modal') ×
                                             h4.modal-title.text-center Bus Fill
                                           .modal-body
-                                            label Vehicle Type :
-                                            select.form-control(ng-model='busfills.vehicletype', ng-change='getdetails()')
-                                              option(value='Own Vehicle') Own Vehicle
-                                              option(value='Private') Private Vehicle
-                                              option(value='Stores') Stores
-                                              option(value='Power House') Powerhouse
-                                              option(value='Others') Others
-                                            label(ng-show='desc') Description :
-                                            textarea(rows='10', ng-model="busfills.description", ng-show='desc').form-control
-                                            label(ng-show='result') Register No. :
-                                            input.form-control(type="text", ng-model="busfills.regno", ng-keyup="search(busfills.regno)", ng-show='result')
+                                            label Register No. :
+                                            input.form-control(type="text", ng-model="Adbusfills.regno", ng-keyup="searchAdbus1(Adbusfills.regno)")
                                             ul.list-group
-                                              li.list-group-item.list-group-item-action(ng-repeat="vehicles in Vehicle", ng-click="click(vehicles.regno)") {{vehicles.regno}}
+                                              li.list-group-item.list-group-item-action(ng-repeat="vehicles in Vehicle1", ng-click="clickAdbus111(vehicles.regno)") {{vehicles.regno}}
                                             label Society Name :
-                                            select.form-control(ng-model='busfills.society')
+                                            select.form-control(ng-model='Adbusfills.society')
                                               option(ng-repeat='societys in society', value='{{societys.name}}') {{societys.name}}
                                             label Branch Name :
-                                            select.form-control(ng-model='busfills.branch')
-                                              option(ng-repeat='branchs in branch', value='{{branchs.name}}') {{branchs.name}}  
-                                            label Driver Name :
-                                            select.form-control(ng-model='busfills.drivername')
-                                              option(ng-repeat='busstaffs in BusStaff', value='{{busstaffs.staffname}}') {{busstaffs.staffname}}
-                                            label Fuel Supplier :
-                                            select.form-control(ng-model='busfills.fuelsupplier')
-                                              option(ng-repeat='fuels in fuel', value='{{fuels.name}}') {{fuels.name}}
-                                            label Date :
-                                            input.form-control(type='date', ng-model='busfills.date')  
-                                            label Rate Per Liter :
-                                            input.form-control(type='text', ng-model='busfills.frate', ng-change='updateData()')
-                                            label Quantity :
-                                            input.form-control(type='text', ng-model='busfills.fquantity', ng-change='updateData()')
-                                            label Total Rate :
-                                            input.form-control(type='text', ng-model='busfills.total', disabled)
-                                            label Token No. :
-                                            input.form-control(type='text', ng-model='busfills.token')
-                                            label Token Issued By :
-                                            input.form-control(type='text', ng-model='busfills.issuedby')
-                                            label OMR :
-                                            input.form-control(type='text', ng-model='busfills.omr', ng-change='updateData()')
-                                            label CMR :
-                                            input.form-control(type='text', ng-model='busfills.cmr', ng-change='updateData()')
-                                            label KMS :
-                                            input.form-control(type='text', ng-model='busfills.kms', ng-change='updateData()')
-                                            label Avg.KMPL :
-                                            input.form-control(type='text', ng-model='busfills.avgkmpl', disabled, ng-change="updateGrade()")
+                                            select.form-control(ng-model='Adbusfills.branch')
+                                              option(ng-repeat='branchs in branch', value='{{branchs.name}}') {{branchs.name}}    
                                             label Model :
-                                            input.form-control(type='text',ng-model='busfills.model' , ng-change="updateGrade()")
-                                            label Grade :
-                                            input.form-control(type='text', ng-model='busfills.grade', disabled, ng-change="updateGrade()")
+                                            select.form-control(ng-model='Adbusfills.Model')
+                                              option(ng-repeat='models in Model', value='{{models.model}}') {{models.model}}    
+                                            label Driver Name :
+                                            input.form-control(type='text', ng-model='Adbusfills.drivername')  
+                                            label Ad-Blue Supplier :
+                                            select.form-control(ng-model='Adbusfills.fuelsupplier', ng-change="getcapacity(Adbusfills.fuelsupplier)")
+                                              option(ng-repeat='Adfuels in Adfuel', value='{{Adfuels.branch}}') {{Adfuels.branch}}
+                                            label Date :
+                                            input.form-control(type='date', ng-model='Adbusfills.date')  
+                                            label Token No. :
+                                            input.form-control(type='text', ng-model='Adbusfills.token')
+                                            label Token Issued By :
+                                            input.form-control(type='text', ng-model='Adbusfills.issuedby')
+                                            label OMR :
+                                            input.form-control(type='text', ng-model='Adbusfills.omr', ng-change='updateData()' ) 
+                                            label CMR :
+                                            input.form-control(type='text', ng-model='Adbusfills.cmr', ng-change='updateData()')
+                                            label KMS :
+                                            input.form-control(type='text', ng-model='Adbusfills.kms', ng-change='updateData()')
+                                            label Filled Qty :
+                                            input.form-control(type='text',ng-model='Adbusfills.filled_Qty' , ng-change="updateGrade()")
                                             br
-                                            input.btn.btn-info(type='submit', value='save', data-dismiss='modal', ng-click="saveBusfillData(busfills)")
+                                            input.btn.btn-info(type='submit', value='save', data-dismiss='modal', ng-click="saveAdBusfillData(Adbusfills)") 
                                           .modal-footer
-                                            button.btn.btn-default(type='button', data-dismiss='modal') Close                                                                                       
+                                            button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                    br
+                                    br
+                                    .panel.panel-default
+                                      .panel-body
+                                        .table-responsive
+                                          table.dataTables-example.table.table-striped.table-bordered.table-hover(datatable="ng" dt-options="vm.dtOptions" dt-instance="vm.dtInstance"  width="100%")
+                                            thead
+                                              tr
+                                                th S.No
+                                                th Register No.
+                                                th Society
+                                                th Branch
+                                                th Model
+                                                th Driver Name
+                                                th Ad-Blue Supplier
+                                                th Tank capacity
+                                                th Date
+                                                th Token No.
+                                                th Token Issued By
+                                                th OMR
+                                                th CMR
+                                                th KMS
+                                                th Filled Qty
+                                                th Edit
+                                                th Delete
+                                            tbody
+                                              tr(ng-repeat='Adbusfills1 in Adbusfill')
+                                                td {{$index + 1 | number}}
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.regno}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.regno')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.society}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.society')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.branch}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.branch')      
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.model}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.model')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.drivername}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.drivername')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.fuelsupplier}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.fuelsupplier')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.capacity}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.capacity')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.date}}
+                                                  input.form-control(type='date', ng-show='AdbusfillEdit', ng-model='Adbusfills1.date',value="{{Adbusfills1.date}}")
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.token_no}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.token_no')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.token_issued_by}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.token_issued_by')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.omr}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.omr')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.cmr}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.cmr')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.kms}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.kms')
+                                                td
+                                                  span(ng-hide="AdbusfillEdit") {{Adbusfills1.filled_Qty}}
+                                                  input.form-control(type='text', ng-show='AdbusfillEdit', ng-model='Adbusfills1.filled_Qty')
+                                                td
+                                                  i.btn.btn-info.fa.fa-edit(ng-hide='AdbusfillEdit', ng-click='AdbusfillEdit = true; editAdBusfill(Adbusfills1)')
+                                                  i.btn.btn-info.fa.fa-save(ng-show='AdbusfillEdit', ng-click='AdbusfillEdit = false; editsaveAdBusfill(Adbusfills1)')
+                                                td
+                                                  i.btn.btn-danger.fa.fa-trash(ng-click='removeAdbusfillItem($index,Adbusfills1)')                                                                                       
                 #stores.tab-pane.fade.align
                   .row.dashboard-stats.container
                     .col-md-2.col-sm-6.col-md-offset-6

@@ -681,6 +681,14 @@ router.get("/getBranchdata", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      // console.log("HABSIGUDA block executed");
+      branch.find({ name: /HABSIGUDA/ }, function (err, docs) {
+        // console.log("HABSIGUDA docs:", docs);
+        res.send(docs);
+      });
+    }
 
    //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -1711,6 +1719,12 @@ router.get("/getStagedata", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      stages.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
      //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -2006,6 +2020,12 @@ router.get("/getRoutedata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       route.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      route.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -2341,6 +2361,12 @@ router.get("/getRoutedetailsdata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       routedetails.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      routedetails.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -2843,6 +2869,12 @@ router.get("/getOfficedata", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      officestaff.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
      //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -3129,6 +3161,12 @@ router.get("/getStaffmeetingdata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       staffmeeting.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      staffmeeting.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -3561,6 +3599,12 @@ router.get("/getBusStaffdata", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      busstaff.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -3881,6 +3925,12 @@ router.get("/getBusCleanerdata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       buscleaner.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      buscleaner.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -4400,6 +4450,12 @@ router.get("/getBranchvehicledata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       branchvehicle.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      branchvehicle.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -5282,6 +5338,12 @@ router.get("/getBusfilldata", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      busfill.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -5551,6 +5613,12 @@ router.post("/getBusfilldata1", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       busfill.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      busfill.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -6031,6 +6099,12 @@ router.get("/vehicletripexceed", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehicletripdata.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -6462,6 +6536,12 @@ router.get("/getVehicleTripdata", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehicletripdata.find({ branch: /HABSIGUDA/, uploaddate: date }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -6855,6 +6935,12 @@ router.post("/gettingvehicletripdata", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehicletripdata.find({ branch: /HABSIGUDA/, Timestamp: { $gte: ftime, $lte: ttime } }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -7159,6 +7245,12 @@ router.get("/getBusremarks", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       busremarks.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      busremarks.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -7493,6 +7585,12 @@ router.get("/getVehicleAccident", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       vehicleaccident.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehicleaccident.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -7932,6 +8030,12 @@ router.post("/getVehicleservice1", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehicleservice.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -8186,6 +8290,12 @@ router.get("/getVehicleservice", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       vehicleservice.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehicleservice.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -8543,6 +8653,12 @@ router.get("/getRtadata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       rta.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      rta.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -8947,6 +9063,12 @@ router.get("/RtaExpired", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      rta.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -9249,6 +9371,12 @@ router.get("/getInsurancedata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       insurance.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      insurance.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -9657,6 +9785,12 @@ router.get("/InsuranceExpired", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      insurance.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -9947,6 +10081,12 @@ router.get("/getPollutiondata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       pollution.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      pollution.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -10333,6 +10473,12 @@ router.get("/PollutionExpired", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      pollution.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -10624,6 +10770,12 @@ router.get("/getFitnessdata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       fitness.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      fitness.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -10996,6 +11148,12 @@ router.get("/FitnessExpired", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      fitness.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -11288,6 +11446,12 @@ router.get("/getRoadtaxdata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       roadtax.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      roadtax.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -11663,6 +11827,12 @@ router.get("/RoadtaxExpired", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      roadtax.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -11958,6 +12128,12 @@ router.get("/getRoadpermitdata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       roadpermit.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      roadpermit.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -12328,6 +12504,12 @@ router.get("/RoadpermitExpired", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      roadpermit.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -12630,6 +12812,12 @@ router.get("/getInsuranceClaimdata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       insuranceclaim.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      insuranceclaim.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -12965,6 +13153,12 @@ router.get("/getVehicleChallandata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       vehiclechallan.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehiclechallan.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -13308,6 +13502,12 @@ router.get("/getNewvehicletyre", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehicletyres.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -13625,6 +13825,12 @@ router.get("/getRepvehicletyre", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       replacedvehicle.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      replacedvehicle.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -14091,6 +14297,12 @@ router.get("/getDailyvehicledata1", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      dailyvehicle.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -14359,6 +14571,12 @@ router.post("/getDailyvehicledata", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      dailyvehicle.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -14613,6 +14831,12 @@ router.get("/getDailyvehicle", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       dailyvehicle.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      dailyvehicle.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -14934,6 +15158,12 @@ router.get("/getVehiclerepair", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       vehiclerepair.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehiclerepair.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -15260,6 +15490,12 @@ router.post("/getVehiclerepair1", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehiclerepair.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -15571,6 +15807,12 @@ router.get("/getvcrdata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       vcr.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vcr.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -15946,6 +16188,12 @@ router.get("/getVehiclewisedata", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      vehiclewisebattery.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -16298,6 +16546,12 @@ router.get("/getbatterychangedata", function (req, res) {
         res.send(docs);
       });
     }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      batterychangereport.find({ branch: /HABSIGUDA/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
 
     //ASHOK NAGAR
     else if (req.session.user.username == "adcasn") {
@@ -16595,6 +16849,12 @@ router.get("/getTyrestatusdata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       tyrestatus.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      tyrestatus.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -16901,6 +17161,12 @@ router.get("/getBusbreakedowndata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       busbreakdown.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      busbreakdown.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -17265,6 +17531,12 @@ router.post("/getbusbreakereportdates", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       busbreakdown.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      busbreakdown.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
@@ -18037,6 +18309,12 @@ router.post("/getAdBusfilldata", function (req, res) {
     // TANUKU
     else if (req.session.user.username == "adctnk") {
       AdBlueBusfill.find({ branch: /TANUKU/ }, function (err, docs) {
+        res.send(docs);
+      });
+    }
+    // HABSIGUDA
+    else if (req.session.user.username == "adchbg") {
+      AdBlueBusfill.find({ branch: /HABSIGUDA/ }, function (err, docs) {
         res.send(docs);
       });
     }
